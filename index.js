@@ -195,6 +195,7 @@ function parseResponse(sender, text){
     }
 
     if(at_pos == -1){
+        reminder_event.err = "Invalid format, please use format <event> at <time in 24-h>."
         createReminder(sender, reminder_event)
     }
 

@@ -98,6 +98,26 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200)
 })
 
+function sendReminder(rem_event){
+
+    let messageData = { text:"REMINDER: " + rem_event.evnt + " at " + rem_event.actualtime}
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:rem_event.sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
 function createReminder(sender, rem_event){
 
     if (rem_event.err)
@@ -105,9 +125,11 @@ function createReminder(sender, rem_event){
     else{
         rem_event.sender = sender
         reminders.push(rem_event)
+        setTimeout(sendReminder, rem_event.etime, rem_event)
         sendTextMessage(sender, "Reminder created!")
     }    
 }
+
 
 const token = "EAARVNLWrpj8BAALWZAgBYrbTZAMC3XZCt3LiSYZA17kaDPCZCS5fyw9A40gZB5UOu8eMYjNUbwonDngxbsamwUrPOndo2Mnx5KppNltSq64ighG4lbKiSzzy9aBGVDkCUONFN9RZABWRYLSReVrZBx5FiqDzUUeHT9z0zHQmhcOJ1AZDZD"
 
@@ -181,7 +203,7 @@ function parseResponse(sender, text){
 
     var words = text.split(" ")
     var num_words = words.length
-    var reminder_event = {sender: null, evnt: "", etime: 0, err: ""}
+    var reminder_event = {sender: null, evnt: "", etime: 0, actualtime: 0, err: ""}
 
     if(num_words < 3){
         reminder_event.err = "Invalid format, please use format <event> at <time in 24-h>."
@@ -205,6 +227,7 @@ function parseResponse(sender, text){
 
     reminder_event.evnt = words.slice(0, at_pos).join(" ")
     var time_str = words[at_pos+1]
+    reminder_event.actualtime = timestr
 
     //var interval = 
     calcInterval(reminder_event, sender, time_str)

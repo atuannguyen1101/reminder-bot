@@ -99,6 +99,19 @@ app.post('/webhook/', function (req, res) {
 
 const token = "EAARVNLWrpj8BAALWZAgBYrbTZAMC3XZCt3LiSYZA17kaDPCZCS5fyw9A40gZB5UOu8eMYjNUbwonDngxbsamwUrPOndo2Mnx5KppNltSq64ighG4lbKiSzzy9aBGVDkCUONFN9RZABWRYLSReVrZBx5FiqDzUUeHT9z0zHQmhcOJ1AZDZD"
 
+function calcInterval(timestr){
+
+    var hours = Number(timestr.match(/^(\d+)/)[1])
+    var minutes = Number(timestr.match(/:(\d+)/)[1])
+    var curr_date = new Date()
+    var curr_hr = curr_date.getHours()
+    var curr_min = curr_date.getMinutes()
+    var curr_sec = curr_date.getSeconds()
+
+    var interval = (hours * 3600 + minutes * 60) - (curr_hr * 3600 + curr_min * 60 + curr_sec)
+    return interval * 1000
+}
+
 function parseResponse(text){
 
     var words = text.split(" ")
@@ -134,19 +147,6 @@ function parseResponse(text){
 
     reminder_event.etime = interval
     return reminder_event
-}
-
-function getInterval(timestr){
-
-    var hours = Number(timestr.match(/^(\d+)/)[1])
-    var minutes = Number(timestr.match(/:(\d+)/)[1])
-    var curr_date = new Date()
-    var curr_hr = curr_date.getHours()
-    var curr_min = curr_date.getMinutes()
-    var curr_sec = curr_date.getSeconds()
-
-    var interval = (hours * 3600 + minutes * 60) - (curr_hr * 3600 + curr_min * 60 + curr_sec)
-    return interval * 1000
 }
 
 function sendTextMessage(sender, text){

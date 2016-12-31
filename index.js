@@ -109,7 +109,7 @@ function calcInterval(timestr){
     var curr_sec = curr_date.getSeconds()
 
     var interval = (hours * 3600 + minutes * 60) - (curr_hr * 3600 + curr_min * 60 + curr_sec)
-    console.log("time: %d", interval)
+    console.log("ehrs: %d, emin: %d, curr_hr: %d, curr_min: %d", hours, minutes, curr_hr, curr_min)
     return interval * 1000
 }
 

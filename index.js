@@ -227,7 +227,7 @@ function parseResponse(sender, text){
 
     reminder_event.evnt = words.slice(0, at_pos).join(" ")
     var time_str = words[at_pos+1]
-    reminder_event.actualtime = timestr
+    reminder_event.actualtime = time_str
 
     //var interval = 
     calcInterval(reminder_event, sender, time_str)

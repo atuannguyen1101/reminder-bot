@@ -183,7 +183,7 @@ function parseResponse(sender, text){
 
     if(num_words < 3){
         reminder_event.err = "Invalid format, please use format <event> at <time in 24-h>."
-        createReminder(reminder_event)
+        createReminder(sender, reminder_event)
     }
 
     var at_pos = -1;
@@ -195,7 +195,7 @@ function parseResponse(sender, text){
     }
 
     if(at_pos == -1){
-        createReminder(reminder_event)
+        createReminder(sender, reminder_event)
     }
 
     reminder_event.evnt = words.slice(0, at_pos).join(" ")

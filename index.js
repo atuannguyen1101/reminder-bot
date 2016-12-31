@@ -101,19 +101,23 @@ const token = "EAARVNLWrpj8BAALWZAgBYrbTZAMC3XZCt3LiSYZA17kaDPCZCS5fyw9A40gZB5UO
 
 function getTimeZone(sender){
 
-    var content = request({
+    var timezone = 0
+
+    request({
         url: 'https://graph.facebook.com/v2.6/' + sender,
-        qs: {access_token:token, fields: ["timezone"]},
+        qs: {access_token:token, fields: "timezone"},
         method: 'GET',
+        json: true,
     }, function(error, response, body) {
         if (error) {
             console.log('Error fetching timezone: ', error)
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
+        }else{
+            console.log(body)
+            timezone = body.timezone
         }
     }) 
-    console.log(content)
-    return JSON.parse(content).timezone   
 }
 
 function calcInterval(sender, timestr){

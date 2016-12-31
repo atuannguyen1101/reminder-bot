@@ -84,18 +84,30 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id
         if (event.message && event.message.text) {
             let text = event.message.text
-            let reminder_event = parseResponse(sender, text)
-            if (reminder_event.err)
-                sendTextMessage(sender, reminder_event.err)
-            else{
-                reminder_event.sender = sender
-                reminders.push(reminder_event)
-                sendTextMessage(sender, "Reminder created!")
-            }
+            //let reminder_event = 
+            parseResponse(sender, text)
+            // if (reminder_event.err)
+            //     sendTextMessage(sender, reminder_event.err)
+            // else{
+            //     reminder_event.sender = sender
+            //     reminders.push(reminder_event)
+            //     sendTextMessage(sender, "Reminder created!")
+            // }
         }
     }
     res.sendStatus(200)
 })
+
+function createReminder(sender, rem_event){
+
+    if (rem_event.err)
+        sendTextMessage(sender, reminder_event.err)
+    else{
+        rem_event.sender = sender
+        reminders.push(rem_event)
+        sendTextMessage(sender, "Reminder created!")
+    }    
+}
 
 const token = "EAARVNLWrpj8BAALWZAgBYrbTZAMC3XZCt3LiSYZA17kaDPCZCS5fyw9A40gZB5UOu8eMYjNUbwonDngxbsamwUrPOndo2Mnx5KppNltSq64ighG4lbKiSzzy9aBGVDkCUONFN9RZABWRYLSReVrZBx5FiqDzUUeHT9z0zHQmhcOJ1AZDZD"
 
@@ -118,7 +130,7 @@ function getTimeZone(sender){
     })
 }
 
-function calcInterval(sender, timestr){
+function calcInterval(reminder_event, sender, timestr){
 
     var hours = Number(timestr.match(/^(\d+)/)[1])
     var minutes = Number(timestr.match(/:(\d+)/)[1])
@@ -126,13 +138,41 @@ function calcInterval(sender, timestr){
     var curr_hr = curr_date.getHours()
     var curr_min = curr_date.getMinutes()
     var curr_sec = curr_date.getSeconds()
-    var timezone = getTimeZone(sender)
+    //var timezone = getTimeZone(sender)
 
-    console.log("Timezone: GMT+%d", timezone)
+    request({
+        url: 'https://graph.facebook.com/v2.6/' + sender,
+        qs: {access_token:token, fields: "timezone"},
+        method: 'GET',
+        json: true,
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error fetching timezone: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }else{
+            console.log(body)
+            var timezone = body.timezone
+            var interval = (hours * 3600 + minutes * 60) - ((curr_hr + timezone) * 3600 + curr_min * 60 + curr_sec)
+            console.log("ehrs: %d, emin: %d, curr_hr: %d, curr_min: %d", hours, minutes, curr_hr, curr_min)
+            
 
-    var interval = (hours * 3600 + minutes * 60) - ((curr_hr + timezone) * 3600 + curr_min * 60 + curr_sec)
-    console.log("ehrs: %d, emin: %d, curr_hr: %d, curr_min: %d", hours, minutes, curr_hr, curr_min)
-    return interval * 1000
+            reminder_event.sender = sender
+            reminder_event.etime = interval
+
+            if(interval <= 0){
+                reminder_event.err = "Invalid time, must be after the current time."
+            }
+
+            createReminder(sender, reminder_event)
+        }
+    })
+
+    //console.log("Timezone: GMT+%d", timezone)
+
+    //var interval = (hours * 3600 + minutes * 60) - ((curr_hr + timezone) * 3600 + curr_min * 60 + curr_sec)
+    //console.log("ehrs: %d, emin: %d, curr_hr: %d, curr_min: %d", hours, minutes, curr_hr, curr_min)
+    //return interval * 1000
 }
 
 function parseResponse(sender, text){
@@ -143,7 +183,7 @@ function parseResponse(sender, text){
 
     if(num_words < 3){
         reminder_event.err = "Invalid format, please use format <event> at <time in 24-h>."
-        return reminder_event
+        createReminder(reminder_event)
     }
 
     var at_pos = -1;
@@ -155,21 +195,21 @@ function parseResponse(sender, text){
     }
 
     if(at_pos == -1){
-        reminder_event.err = "Invalid format, please use format <event> at <time in 24-h>."
-        return reminder_event
+        createReminder(reminder_event)
     }
 
     reminder_event.evnt = words.slice(0, at_pos).join(" ")
     var time_str = words[at_pos+1]
 
-    var interval = calcInterval(sender, time_str)
-    if (interval <= 0){
-        reminder_event.err = "Invalid time, must be after the current time."
-        return reminder_event
-    }
+    //var interval = 
+    calcInterval(reminder_event, sender, time_str)
+    // if (interval <= 0){
+    //     reminder_event.err = "Invalid time, must be after the current time."
+    //     return reminder_event
+    // }
 
-    reminder_event.etime = interval
-    return reminder_event
+    // reminder_event.etime = interval
+    // return reminder_event
 }
 
 function sendTextMessage(sender, text){

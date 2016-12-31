@@ -35,6 +35,20 @@ const app = express()
 // });
 
 var reminders = []
+let Wit = null
+let log = null
+
+try {
+  // if running from repo
+  Wit = require('../').Wit;
+  log = require('../').log;
+} catch (e) {
+  Wit = require('node-wit').Wit;
+  log = require('node-wit').log;
+}
+
+
+const WIT_TOKEN = process.env.WIT_TOKEN;
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -62,6 +76,12 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
 
+
+
+//////////////////////////////////////////////////
+
+const sessions = {};
+
 function init_authorize(){
 
     fs.readFile('client_secret.json', function processClientSecrets(err, content) {
@@ -84,8 +104,19 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id
         if (event.message && event.message.text) {
             let text = event.message.text
+            const sessionId = findOrCreateSession(sender)
             //let reminder_event = 
-            parseResponse(sender, text)
+            //parseResponse(sender, text)
+            wit.runActions(
+                sessionId,
+                text,
+                sessions[sessionId].context
+            ).then((context) => {
+                sessions[sessionId].context = context
+            })
+            .catch((err) => {
+                console.error('Oops! Got an error from Wit: ', err.stack || err);
+            })
             // if (reminder_event.err)
             //     sendTextMessage(sender, reminder_event.err)
             // else{
@@ -187,8 +218,9 @@ function calcInterval(reminder_event, sender, timestr){
                 createReminder(sender, reminder_event)
                 return
             }
-
-            createReminder(sender, reminder_event)
+            reminder_event.sender = sender
+            return reminder_event
+            //return createReminder(sender, reminder_event)
         }
     })
 
@@ -199,46 +231,72 @@ function calcInterval(reminder_event, sender, timestr){
     //return interval * 1000
 }
 
-function parseResponse(sender, text){
+function parseResponse(context, entities, resolve, reject){
 
-    var words = text.split(" ")
-    var num_words = words.length
-    var reminder_event = {sender: null, evnt: "", etime: 0, actualtime: 0, err: ""}
+    var sender = context.sender
+    var evnt = firstEntityValue(entities, "reminder")
+    var time = firstEntityValue(entities, "datetime")
 
-    if(num_words < 3){
-        reminder_event.err = "Invalid format, please use format <event> at <time in 24-h>."
-        createReminder(sender, reminder_event)
-        return
+    if(!evnt){
+        context.is_error = true
+        delete context.event
+        delete context.event_time
+        delete context.missing_time
+    }else if(!time){
+        context.missing_time = true
+        delete context.event
+        delete context.event_time
+        delete context.is_error
+    }else{
+        context.event = evnt
+        context.event_time = time
+        delete context.missing_time
+        delete context.is_error
     }
 
-    var at_pos = -1;
-    for(var i = num_words - 1; i >= 0; i--){
-        if(words[i] == "at"){
-            at_pos = i;
-            break;
-        }
-    }
-
-    if(at_pos == -1){
-        reminder_event.err = "Invalid format, please use format <event> at <time in 24-h>."
-        createReminder(sender, reminder_event)
-        return
-    }
-
-    reminder_event.evnt = words.slice(0, at_pos).join(" ")
-    var time_str = words[at_pos+1]
-    reminder_event.actualtime = time_str
-
-    //var interval = 
-    calcInterval(reminder_event, sender, time_str)
-    // if (interval <= 0){
-    //     reminder_event.err = "Invalid time, must be after the current time."
-    //     return reminder_event
-    // }
-
-    // reminder_event.etime = interval
-    // return reminder_event
+    return resolve(context)
 }
+
+// function parseResponse(sender, text){
+
+//     var words = text.split(" ")
+//     var num_words = words.length
+//     var reminder_event = {sender: null, evnt: "", etime: 0, actualtime: 0, err: ""}
+
+//     if(num_words < 3){
+//         reminder_event.err = "Invalid format, please use format <event> at <time in 24-h>."
+//         //createReminder(sender, reminder_event)
+//         return reminder_event
+//     }
+
+//     var at_pos = -1;
+//     for(var i = num_words - 1; i >= 0; i--){
+//         if(words[i] == "at"){
+//             at_pos = i;
+//             break;
+//         }
+//     }
+
+//     if(at_pos == -1){
+//         reminder_event.err = "Invalid format, please use format <event> at <time in 24-h>."
+//         //createReminder(sender, reminder_event)
+//         return reminder_event
+//     }
+
+//     reminder_event.evnt = words.slice(0, at_pos).join(" ")
+//     var time_str = words[at_pos+1]
+//     reminder_event.actualtime = time_str
+
+//     //var interval = 
+//     return calcInterval(reminder_event, sender, time_str)
+//     // if (interval <= 0){
+//     //     reminder_event.err = "Invalid time, must be after the current time."
+//     //     return reminder_event
+//     // }
+
+//     // reminder_event.etime = interval
+//     // return reminder_event
+// }
 
 function sendTextMessage(sender, text){
     let messageData = { text:text }
@@ -258,3 +316,63 @@ function sendTextMessage(sender, text){
         }
     })
 }
+
+///////////////////////////////////////////////
+
+const findOrCreateSession = (fbid) => {
+
+    let sessionId;
+
+    Object.keys(sessions).forEach(k => {
+        if (sessions[k].fbid === fbid){
+            sessionId = k;
+        }
+    });
+    if (!sessionId){
+        sessionId = new Date().toISOString();
+        sessions[sessionId] = {fbid: fbid, context: {sender: fbid}};
+    }
+    return sessionId;
+};
+
+const actions = {
+    send({sessionId}, {text}){
+        const recipientId = sessions[sessionId].fbid;
+        if (recipientId) {
+            // Yay, we found our recipient!
+            // Let's forward our bot response to her.
+            // We return a promise to let our bot know when we're done sending
+            return sendTextMessage(recipientId, text)
+            .then(() => null)
+            .catch((err) => {
+                console.error(
+                    'Oops! An error occurred while forwarding the response to',
+                    recipientId,
+                    ':',
+                    err.stack || err
+                );
+            });
+        } else {
+            console.error('Oops! Couldn\'t find user for session:', sessionId);
+            // Giving the wheel back to our bot
+            return Promise.resolve()
+        }
+    },
+    processReminder({context, entities}){
+
+        return new Promise(function(resolve, reject){
+            // code
+            // becuase async call, pass all of this info (context, entities, resolve, reject)
+            // to parseResponse
+            return parseResponse(context, entities, resolve, reject)
+            //return resolve(context)
+        })
+
+    },
+};
+
+const wit = new Wit({
+  accessToken: WIT_TOKEN,
+  actions,
+  logger: new log.Logger(log.INFO)
+});

@@ -112,7 +112,7 @@ function getTimeZone(sender){
             console.log('Error: ', response.body.error)
         }
     }) 
-
+    console.log(content)
     return JSON.parse(content).timezone   
 }
 

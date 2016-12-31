@@ -84,7 +84,7 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id
         if (event.message && event.message.text) {
             let text = event.message.text
-            reminder_event = parseResponse(text)
+            let reminder_event = parseResponse(text)
             if (reminder_event.err)
                 sendTextMessage(sender, reminder_event.err)
             else{

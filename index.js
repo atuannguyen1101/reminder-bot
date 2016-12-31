@@ -262,6 +262,15 @@ function parseResponse(context, entities, resolve, reject){
     }else{
         context.event = evnt
         context.event_time = time
+
+        var hours = time.getHours()
+        var minutes = time.getMinutes()
+        var curr_date = new Date()
+        var curr_hr = curr_date.getHours()
+        var curr_min = curr_date.getMinutes()
+        var curr_sec = curr_date.getSeconds()
+
+        console.log("Time: %d:%d", hours, minutes)
         delete context.missing_time
         delete context.is_error
     }
@@ -355,15 +364,15 @@ const actions = {
             // Let's forward our bot response to her.
             // We return a promise to let our bot know when we're done sending
             return sendTextMessage(recipientId, text)
-            .then(() => null)
-            .catch((err) => {
-                console.error(
-                    'Oops! An error occurred while forwarding the response to',
-                    recipientId,
-                    ':',
-                    err.stack || err
-                );
-            });
+            // .then(() => null)
+            // .catch((err) => {
+            //     console.error(
+            //         'Oops! An error occurred while forwarding the response to',
+            //         recipientId,
+            //         ':',
+            //         err.stack || err
+            //     );
+            // });
         } else {
             console.error('Oops! Couldn\'t find user for session:', sessionId);
             // Giving the wheel back to our bot

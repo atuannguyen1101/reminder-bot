@@ -84,7 +84,7 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id
         if (event.message && event.message.text) {
             let text = event.message.text
-            let reminder_event = parseResponse(text)
+            let reminder_event = parseResponse(sender, text)
             if (reminder_event.err)
                 sendTextMessage(sender, reminder_event.err)
             else{
@@ -99,7 +99,22 @@ app.post('/webhook/', function (req, res) {
 
 const token = "EAARVNLWrpj8BAALWZAgBYrbTZAMC3XZCt3LiSYZA17kaDPCZCS5fyw9A40gZB5UOu8eMYjNUbwonDngxbsamwUrPOndo2Mnx5KppNltSq64ighG4lbKiSzzy9aBGVDkCUONFN9RZABWRYLSReVrZBx5FiqDzUUeHT9z0zHQmhcOJ1AZDZD"
 
-function calcInterval(timestr){
+function getTimeZone(sender){
+
+    request({
+        url: 'https://graph.facebook.com/v2.6/' + sender,
+        qs: {access_token:token, fields: [timezone]},
+        method: 'GET',
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error fetching timezone: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })    
+}
+
+function calcInterval(sender, timestr){
 
     var hours = Number(timestr.match(/^(\d+)/)[1])
     var minutes = Number(timestr.match(/:(\d+)/)[1])
@@ -107,13 +122,14 @@ function calcInterval(timestr){
     var curr_hr = curr_date.getHours()
     var curr_min = curr_date.getMinutes()
     var curr_sec = curr_date.getSeconds()
+    var timezone  = getTimeZone(sender)
 
-    var interval = (hours * 3600 + minutes * 60) - (curr_hr * 3600 + curr_min * 60 + curr_sec)
+    var interval = (hours * 3600 + minutes * 60) - ((curr_hr + timezone) * 3600 + curr_min * 60 + curr_sec)
     console.log("ehrs: %d, emin: %d, curr_hr: %d, curr_min: %d", hours, minutes, curr_hr, curr_min)
     return interval * 1000
 }
 
-function parseResponse(text){
+function parseResponse(sender, text){
 
     var words = text.split(" ")
     var num_words = words.length
@@ -140,7 +156,7 @@ function parseResponse(text){
     reminder_event.evnt = words.slice(0, at_pos).join(" ")
     var time_str = words[at_pos+1]
 
-    var interval = calcInterval(time_str)
+    var interval = calcInterval(sender, time_str)
     if (interval <= 0){
         reminder_event.err = "Invalid time, must be after the current time."
         return reminder_event

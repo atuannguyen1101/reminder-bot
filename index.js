@@ -103,7 +103,7 @@ function parseResponse(text){
 
     var words = text.split(" ")
     var num_words = words.length
-    reminder_event = {sender: null, evnt: "", etime: 0, err: ""}
+    var reminder_event = {sender: null, evnt: "", etime: 0, err: ""}
 
     if(num_words < 3){
         reminder_event.err = "Invalid format, please use format <event> at <time in 24-h>."

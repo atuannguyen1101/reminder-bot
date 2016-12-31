@@ -101,7 +101,7 @@ app.post('/webhook/', function (req, res) {
 function createReminder(sender, rem_event){
 
     if (rem_event.err)
-        sendTextMessage(sender, reminder_event.err)
+        sendTextMessage(sender, rem_event.err)
     else{
         rem_event.sender = sender
         reminders.push(rem_event)

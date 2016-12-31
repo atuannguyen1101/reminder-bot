@@ -217,7 +217,7 @@ function calcInterval(reminder_event, sender, etime, context, entities, resolve,
         }else{
             console.log(body)
             var timezone = body.timezone
-            var interval = (hours * 3600 + minutes * 60 + seconds) - ((curr_hr + timezone) * 3600 + curr_min * 60 + curr_sec)
+            var interval = (hours * 3600 + minutes * 60 + seconds) - (((curr_hr + timezone)%24) * 3600 + curr_min * 60 + curr_sec)
             console.log("ehrs: %d, emin: %d, curr_hr: %d, curr_min: %d", hours, minutes, curr_hr, curr_min)
             
 

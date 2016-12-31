@@ -35,7 +35,6 @@ const app = express()
 // });
 
 var reminders = []
-var timezone = 0
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -114,7 +113,7 @@ function getTimeZone(sender){
             console.log('Error: ', response.body.error)
         }else{
             console.log(body)
-            timezone = body.timezone
+            return body.timezone
         }
     })
 }
@@ -127,7 +126,7 @@ function calcInterval(sender, timestr){
     var curr_hr = curr_date.getHours()
     var curr_min = curr_date.getMinutes()
     var curr_sec = curr_date.getSeconds()
-    getTimeZone(sender)
+    var timezone = getTimeZone(sender)
 
     console.log("Timezone: GMT+%d", timezone)
 

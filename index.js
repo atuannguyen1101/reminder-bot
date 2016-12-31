@@ -103,7 +103,7 @@ function getTimeZone(sender){
 
     request({
         url: 'https://graph.facebook.com/v2.6/' + sender,
-        qs: {access_token:token, fields: [timezone]},
+        qs: {access_token:token, fields: ["timezone"]},
         method: 'GET',
     }, function(error, response, body) {
         if (error) {

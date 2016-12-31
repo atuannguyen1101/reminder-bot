@@ -117,7 +117,9 @@ function getTimeZone(sender){
             console.log(body)
             timezone = body.timezone
         }
-    }) 
+    })
+
+    return timezone 
 }
 
 function calcInterval(sender, timestr){
@@ -129,6 +131,8 @@ function calcInterval(sender, timestr){
     var curr_min = curr_date.getMinutes()
     var curr_sec = curr_date.getSeconds()
     var timezone  = getTimeZone(sender)
+
+    console.log("Timezone: GMT+%d", timezone)
 
     var interval = (hours * 3600 + minutes * 60) - ((curr_hr + timezone) * 3600 + curr_min * 60 + curr_sec)
     console.log("ehrs: %d, emin: %d, curr_hr: %d, curr_min: %d", hours, minutes, curr_hr, curr_min)

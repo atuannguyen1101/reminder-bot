@@ -180,7 +180,7 @@ function calcInterval(reminder_event, sender, timestr){
             
 
             reminder_event.sender = sender
-            reminder_event.etime = interval
+            reminder_event.etime = interval * 1000
 
             if(interval <= 0){
                 reminder_event.err = "Invalid time, must be after the current time."

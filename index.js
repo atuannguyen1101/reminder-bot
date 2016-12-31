@@ -5,6 +5,37 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 
+// var fs = require('fs')
+// var readline = require('readline')
+// var google = require('googleapis')
+// var googleAuth = require('google-auth-library')
+
+// var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
+// var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
+//     process.env.USERPROFILE) + '/.credentials/';
+// var TOKEN_PATH = TOKEN_DIR + 'calendar.googleapis.com-nodejs-reminderbot.json';
+
+// var google = require('googleapis')
+// var OAuth2 = google.auth.OAuth2
+// var calendar = google.calendar('v3')
+
+// var oauth2Client = new OAuth2(
+//     "1046330876699-612bmgjkh9utabu5icbg8nqdbqujr0d8.apps.googleusercontent.com",
+//     "FYwz_Rl12aqWQgSj11tz4MDP",
+//     "https://pure-castle-98425.herokuapp.com/gcalhook"
+// );
+
+// var scopes = [
+//     'https://www.googleapis.com/auth/calendar'
+// ];
+
+// var url = oauth2Client.generateAuthUrl({
+//     access_type: 'offline',
+//     scope: scopes
+// });
+
+var reminders = []
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -31,20 +62,92 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
 
+function init_authorize(){
+
+    fs.readFile('client_secret.json', function processClientSecrets(err, content) {
+    if (err) {
+        console.log('Error loading client secret file: ' + err);
+        return;
+    }
+    // Authorize a client with the loaded credentials, then call the
+    // Google Sheets API.
+    authorize(JSON.parse(content), handle);
+    });
+}
+
 app.post('/webhook/', function (req, res) {
+
+
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
         let event = req.body.entry[0].messaging[i]
         let sender = event.sender.id
         if (event.message && event.message.text) {
             let text = event.message.text
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+            reminder_event = parseResponse(text)
+            if (reminder_event.err)
+                sendTextMessage(sender, reminder_event.err)
+            else{
+                reminder_event.sender = sender
+                reminders.push(reminder_event)
+                sendTextMessage(sender, "Reminder created!")
+            }
         }
     }
     res.sendStatus(200)
 })
 
 const token = "EAARVNLWrpj8BAALWZAgBYrbTZAMC3XZCt3LiSYZA17kaDPCZCS5fyw9A40gZB5UOu8eMYjNUbwonDngxbsamwUrPOndo2Mnx5KppNltSq64ighG4lbKiSzzy9aBGVDkCUONFN9RZABWRYLSReVrZBx5FiqDzUUeHT9z0zHQmhcOJ1AZDZD"
+
+function parseResponse(text){
+
+    var words = text.split(" ")
+    var num_words = words.length
+    reminder_event = {sender: null, evnt: "", etime: 0, err: ""}
+
+    if(num_words < 3){
+        reminder_event.err = "Invalid format, please use format <event> at <time in 24-h>."
+        return reminder_event
+    }
+
+    var at_pos = -1;
+    for(var i = num_words - 1; i >= 0; i--){
+        if(words[i] == "at"){
+            at_pos = i;
+            break;
+        }
+    }
+
+    if(at_pos == -1){
+        reminder_event.err = "Invalid format, please use format <event> at <time in 24-h>."
+        return reminder_event
+    }
+
+    reminder_event.evnt = words.slice(0, at_pos).join(" ")
+    var time_str = words[at_pos+1]
+
+    var interval = calcInterval(time_str)
+    if (interval <= 0){
+        reminder_event.err = "Invalid time, must be after the current time."
+        return reminder_event
+    }
+
+    reminder_event.etime = interval
+    return reminder_event
+}
+
+function getInterval(timestr){
+
+    var hours = Number(timestr.match(/^(\d+)/)[1])
+    var minutes = Number(timestr.match(/:(\d+)/)[1])
+    var curr_date = new Date()
+    var curr_hr = curr_date.getHours()
+    var curr_min = curr_date.getMinutes()
+    var curr_sec = curr_date.getSeconds()
+
+    var interval = (hours * 3600 + minutes * 60) - (curr_hr * 3600 + curr_min * 60 + curr_sec)
+    return interval * 1000
+}
 
 function sendTextMessage(sender, text){
     let messageData = { text:text }

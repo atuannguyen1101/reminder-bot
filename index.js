@@ -163,14 +163,12 @@ function sendReminder(rem_event){
 
 function createReminder(sender, rem_event){
 
-    if (rem_event.err)
-        sendTextMessage(sender, rem_event.err)
-    else{
-        rem_event.sender = sender
-        reminders.push(rem_event)
-        setTimeout(sendReminder, rem_event.etime, rem_event)
-        sendTextMessage(sender, "Reminder created!")
-    }    
+    
+    rem_event.sender = sender
+    reminders.push(rem_event)
+    setTimeout(sendReminder, rem_event.etime, rem_event)
+
+    return
 }
 
 
@@ -195,10 +193,11 @@ function getTimeZone(sender){
     })
 }
 
-function calcInterval(reminder_event, sender, timestr){
+function calcInterval(reminder_event, sender, etime, context, entities, resolve, reject){
 
-    var hours = Number(timestr.match(/^(\d+)/)[1])
-    var minutes = Number(timestr.match(/:(\d+)/)[1])
+    var hours = etime.getHours()
+    var minutes = etime.getMinutes()
+    var seconds = etime.getSeconds()
     var curr_date = new Date()
     var curr_hr = curr_date.getHours()
     var curr_min = curr_date.getMinutes()
@@ -218,20 +217,22 @@ function calcInterval(reminder_event, sender, timestr){
         }else{
             console.log(body)
             var timezone = body.timezone
-            var interval = (hours * 3600 + minutes * 60) - ((curr_hr + timezone) * 3600 + curr_min * 60 + curr_sec)
+            var interval = (hours * 3600 + minutes * 60 + seconds) - ((curr_hr + timezone) * 3600 + curr_min * 60 + curr_sec)
             console.log("ehrs: %d, emin: %d, curr_hr: %d, curr_min: %d", hours, minutes, curr_hr, curr_min)
             
 
             reminder_event.sender = sender
             reminder_event.etime = interval * 1000
-
+            // needs new context
             if(interval <= 0){
                 reminder_event.err = "Invalid time, must be after the current time."
                 createReminder(sender, reminder_event)
                 return
             }
             reminder_event.sender = sender
-            return reminder_event
+            createReminder(sender, reminder_event)
+
+            return resolve(context)
             //return createReminder(sender, reminder_event)
         }
     })
@@ -246,7 +247,12 @@ function calcInterval(reminder_event, sender, timestr){
 function parseResponse(context, entities, resolve, reject){
 
     var sender = context.sender
-    var evnt = firstEntityValue(entities, "reminder")
+    var evnt
+    if (!('event' in context)){
+        evnt = firstEntityValue(entities, "reminder")
+    }else{
+        evnt = context.event
+    }
     var time = firstEntityValue(entities, "datetime")
 
     if(!evnt){
@@ -256,7 +262,7 @@ function parseResponse(context, entities, resolve, reject){
         delete context.missing_time
     }else if(!time){
         context.missing_time = true
-        delete context.event
+        context.event = evnt
         delete context.event_time
         delete context.is_error
     }else{
@@ -265,16 +271,16 @@ function parseResponse(context, entities, resolve, reject){
 
         var strtime = String(time)
         var etime = new Date(strtime.slice(0, strtime.length - 6) + "+00:00")
-        var hours = etime.getHours()
-        var minutes = etime.getMinutes()
-        var curr_date = new Date()
-        var curr_hr = curr_date.getHours()
-        var curr_min = curr_date.getMinutes()
-        var curr_sec = curr_date.getSeconds()
 
-        console.log("Time: %d:%d", hours, minutes)
+        var reminder_event = {sender: null, evnt: "", etime: 0, actualtime: 0, err: ""}
+        reminder_event.sender = sender
+        reminder_event.evnt = evnt
+        reminder_event.actualtime = String(etime)
+
         delete context.missing_time
         delete context.is_error
+
+        return calcInterval(reminder_event, sender, etime, context, entities, resolve, reject)
     }
 
     return resolve(context)

@@ -35,6 +35,7 @@ const app = express()
 // });
 
 var reminders = []
+var timezone = 0
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -101,8 +102,6 @@ const token = "EAARVNLWrpj8BAALWZAgBYrbTZAMC3XZCt3LiSYZA17kaDPCZCS5fyw9A40gZB5UO
 
 function getTimeZone(sender){
 
-    var timezone = 0
-
     request({
         url: 'https://graph.facebook.com/v2.6/' + sender,
         qs: {access_token:token, fields: "timezone"},
@@ -118,8 +117,6 @@ function getTimeZone(sender){
             timezone = body.timezone
         }
     })
-
-    return timezone 
 }
 
 function calcInterval(sender, timestr){
@@ -130,7 +127,7 @@ function calcInterval(sender, timestr){
     var curr_hr = curr_date.getHours()
     var curr_min = curr_date.getMinutes()
     var curr_sec = curr_date.getSeconds()
-    var timezone  = getTimeZone(sender)
+    getTimeZone(sender)
 
     console.log("Timezone: GMT+%d", timezone)
 

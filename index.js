@@ -263,7 +263,8 @@ function parseResponse(context, entities, resolve, reject){
         context.event = evnt
         context.event_time = time
 
-        var etime = new Date(String(time))
+        var strtime = String(time)
+        var etime = new Date(strtime.slice(0, strtime.length - 6) + "+00:00")
         var hours = etime.getHours()
         var minutes = etime.getMinutes()
         var curr_date = new Date()

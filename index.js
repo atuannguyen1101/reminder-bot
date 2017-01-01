@@ -125,6 +125,7 @@ app.post('/webhook/', function (req, res) {
                 text,
                 sessions[sessionId].context
             ).then((context) => {
+                console.log('show' in context)
                 sessions[sessionId].context = context
             })
             .catch((err) => {
@@ -148,7 +149,7 @@ function sendReminder(rem_event){
     var listLen = reminders.length
 
     for (var i = 0; i < listLen; i++){
-        if(Object.toJSON(rem_event) == Object.toJSON(reminders[i])){
+        if(JSON.stringify(rem_event) == JSON.stringify(reminders[i])){
             reminders.splice(i, 1)
             break
         }

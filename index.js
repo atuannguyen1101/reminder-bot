@@ -248,6 +248,7 @@ function calcInterval(reminder_event, sender, etime, context, entities, resolve,
             //delete context.event_time
             delete context.before_ctime
 
+            sessions[context.sessionId].context = context
             return resolve(context)
             //return createReminder(sender, reminder_event)
         }
@@ -283,6 +284,7 @@ function fetchTimezone(context, entities, resolve, reject){
             context.reference_time = usrTime
             console.log(usrTime)
 
+            sessions[context.sessionId].context = context
             return resolve(context)
             //return createReminder(sender, reminder_event)
         }
@@ -353,6 +355,7 @@ function parseResponse(context, entities, resolve, reject){
         return calcInterval(reminder_event, sender, etime, context, entities, resolve, reject)
     }
 
+    sessions[context.sessionId].context = context
     return resolve(context)
 }
 

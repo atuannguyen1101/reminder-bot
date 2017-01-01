@@ -423,45 +423,47 @@ function sendTextMessage(sender, text, context){
             console.log('Error sending messages: ', error)
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
+        }else{
+
+                if ('show' in context){
+                    let messageData = {"attachment": {
+                        "type": "template",
+                        "payload": {
+                            "template_type": "generic",
+                            "elements": []
+                        }
+                    }}
+
+                    var numReminders = context.reminder_list.length
+
+                    for (var i = 0; i < numReminders; i++){
+                        var newElem = {
+                            "title": context.reminder_list[i].evnt,
+                            "subtitle": "at " + context.reminder_list[i].actualtime,
+                        }
+
+                        messageData.attachment.payload.elements.push(newElem)
+                    }
+
+                    request({
+                        url: 'https://graph.facebook.com/v2.6/me/messages',
+                        qs: {access_token:token},
+                        method: 'POST',
+                        json: {
+                            recipient: {id:sender},
+                            message: messageData,
+                        }
+                    }, function(error, response, body) {
+                        if (error) {
+                            console.log('Error sending messages: ', error)
+                        } else if (response.body.error) {
+                            console.log('Error: ', response.body.error)
+                        }
+                    })
+                }
         }
     })
 
-    if ('show' in context){
-        let messageData = {"attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": []
-            }
-        }}
-
-        var numReminders = context.reminder_list.length
-
-        for (var i = 0; i < numReminders; i++){
-            var newElem = {
-                "title": context.reminder_list[i].evnt,
-                "subtitle": "at " + context.reminder_list[i].actualtime,
-            }
-
-            messageData.attachment.payload.elements.push(newElem)
-        }
-
-        request({
-            url: 'https://graph.facebook.com/v2.6/me/messages',
-            qs: {access_token:token},
-            method: 'POST',
-            json: {
-                recipient: {id:sender},
-                message: messageData,
-            }
-        }, function(error, response, body) {
-            if (error) {
-                console.log('Error sending messages: ', error)
-            } else if (response.body.error) {
-                console.log('Error: ', response.body.error)
-            }
-        })
-    }
 }
 
 ///////////////////////////////////////////////

@@ -46,6 +46,7 @@ try {
   Wit = require('node-wit').Wit;
   log = require('node-wit').log;
 }
+var moment = require('moment')
 
 
 const WIT_TOKEN = process.env.WIT_TOKEN;
@@ -264,12 +265,12 @@ function fetchTimezone(context, entities, resolve, reject){
         }else{
             console.log(body)
             var timezone = body.timezone
-            var date = new Date()
-            var utc = date.getTime() + (date.getTimezoneOffset() * 60000)
+            var usrTime = moment.utc().utcOffset(timezone * 60).format()
+            //var utc = date.getTime() + (date.getTimezoneOffset() * 60000)
 
-            var localDate = new Date(utc + 3600000 * timezone)
-            context.reference_time = String(localDate)
-            console.log(String(localDate))
+            //var localDate = new Date(utc + 3600000 * timezone)
+            context.reference_time = usrTime
+            console.log(usrTime)
 
             return resolve(context)
             //return createReminder(sender, reminder_event)

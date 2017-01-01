@@ -323,7 +323,7 @@ function parseResponse(context, entities, resolve, reject){
         context.event_time = time
 
         var strtime = String(time)
-        var etime = new Date(strtime)
+        var etime = time
 
         var reminder_event = {sender: null, evnt: "", etime: 0, actualtime: 0, err: ""}
         reminder_event.sender = sender

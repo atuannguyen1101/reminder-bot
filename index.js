@@ -439,8 +439,8 @@ function sendTextMessage(sender, text, context){
 
         for (var i = 0; i < numReminders; i++){
             var newElem = {
-                "title": context.reminder_list[i].evnt
-                "subtitle": "at " + context.reminder_list[i].actualtime
+                "title": context.reminder_list[i].evnt,
+                "subtitle": "at " + context.reminder_list[i].actualtime,
             }
 
             messageData.attachment.payload.elements.push(newElem)

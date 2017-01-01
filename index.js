@@ -265,7 +265,7 @@ function fetchTimezone(context, entities, resolve, reject){
             console.log(body)
             var timezone = body.timezone
             var date = new Date()
-            var utc = date.getTime() + (date.getTimeZoneOffset() * 60000)
+            var utc = date.getTime() + (date.getTimezoneOffset() * 60000)
 
             var localDate = new Date(utc + 3600000 * timezone)
             context.reference_time = String(localDate)

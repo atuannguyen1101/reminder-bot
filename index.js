@@ -248,6 +248,29 @@ function calcInterval(reminder_event, sender, etime, context, entities, resolve,
     //return interval * 1000
 }
 
+function fetchTimezone(context, entities, resolve, reject){
+
+    request({
+        url: 'https://graph.facebook.com/v2.6/' + sender,
+        qs: {access_token:token, fields: "timezone"},
+        method: 'GET',
+        json: true,
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error fetching timezone: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }else{
+            console.log(body)
+            var timezone = body.timezone
+            context.timezone = timezone
+
+            return resolve(context)
+            //return createReminder(sender, reminder_event)
+        }
+    })    
+}
+
 function parseResponse(context, entities, resolve, reject){
 
     var sender = context.sender
@@ -257,6 +280,19 @@ function parseResponse(context, entities, resolve, reject){
     // }else{
     //     evnt = context.event
     // }
+    if (!('timezone' in context)){
+        delete context.event
+        delete context.event_time
+        delete context.missing_time
+        delete context.before_ctime
+        delete context.is_error
+        context.intro = true
+
+        return fetchTimezone(context, entities, resolve, reject)
+    }else{
+
+        delete context.intro
+    }
     evnt = firstEntityValue(entities, "reminder")
     if (!evnt && ('event' in context))
         evnt = context.event

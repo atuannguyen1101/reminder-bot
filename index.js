@@ -99,8 +99,6 @@ app.post('/webhook/', function (req, res) {
                 text,
                 sessions[sessionId].context
             ).then((context) => {
-                console.log("saving context")
-                console.log('show' in context)
                 sessions[sessionId].context = context
             })
             .catch((err) => {
@@ -178,10 +176,8 @@ function calcInterval(reminder_event, sender, etime, context, entities, resolve,
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
         }else{
-            console.log(body)
             var timezone = body.timezone
             var interval = (hours * 3600 + minutes * 60 + seconds) - (((curr_hr + timezone)%24) * 3600 + curr_min * 60 + curr_sec)
-            console.log("ehrs: %d, emin: %d, curr_hr: %d, curr_min: %d", hours, minutes, curr_hr, curr_min)
             
             interval = etime - moment.utc().utcOffset(timezone * 60)
             reminder_event.sender = sender
@@ -229,14 +225,13 @@ function fetchTimezone(context, entities, resolve, reject){
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
         }else{
-            console.log(body)
+            
             var timezone = body.timezone
             var usrTime = moment.utc().utcOffset(timezone * 60).format()
             //var utc = date.getTime() + (date.getTimezoneOffset() * 60000)
 
             //var localDate = new Date(utc + 3600000 * timezone)
             context.reference_time = usrTime
-            console.log(usrTime)
 
             sessions[context.sessionId].context = context
             return resolve(context)
@@ -283,7 +278,7 @@ function parseResponse(context, entities, resolve, reject){
         delete context.missing_time
         delete context.before_ctime
     }else if(!time){
-        console.log("Missing time!")
+        
         context.missing_time = true
         context.event = evnt
         delete context.event_time
@@ -343,7 +338,6 @@ function sendTextMessage(sender, text, context){
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
         }else{
-                console.log("Show!")
                 if ('show' in context){
                     
                     let messageData = {"attachment": {
@@ -412,8 +406,7 @@ const actions = {
             // Yay, we found our recipient!
             // Let's forward our bot response to her.
             // We return a promise to let our bot know when we're done sending
-            console.log("Triggering send")
-            console.log('show' in context)
+
             return sendTextMessage(recipientId, text, context)
             
         } else {
@@ -441,9 +434,7 @@ const actions = {
             delete context.intro
 
             context.show = true
-            console.log("Here")
             context.reminder_list = listAllReminders(context.sender)
-            console.log(context.reminder_list.length)
 
             sessions[context.sessionId].context = context
 

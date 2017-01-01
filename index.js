@@ -283,6 +283,7 @@ function parseResponse(context, entities, resolve, reject){
 
         delete context.missing_time
         delete context.is_error
+        delete context.before_ctime
 
         return calcInterval(reminder_event, sender, etime, context, entities, resolve, reject)
     }

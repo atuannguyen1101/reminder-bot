@@ -424,9 +424,9 @@ function sendTextMessage(sender, text, context){
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
         }else{
-
+                console.log("Show!")
                 if ('show' in context){
-                    console.log("Show!")
+                    
                     let messageData = {"attachment": {
                         "type": "template",
                         "payload": {
@@ -488,7 +488,7 @@ const findOrCreateSession = (fbid) => {
 const actions = {
     send({sessionId}, {text}){
         const recipientId = sessions[sessionId].fbid;
-        const context = sessions[sessionId].context
+        var context = sessions[sessionId].context
         if (recipientId) {
             // Yay, we found our recipient!
             // Let's forward our bot response to her.

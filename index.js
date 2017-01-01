@@ -314,6 +314,7 @@ function parseResponse(context, entities, resolve, reject){
         delete context.missing_time
         delete context.before_ctime
     }else if(!time){
+        console.log("Missing time!")
         context.missing_time = true
         context.event = evnt
         delete context.event_time

@@ -529,7 +529,9 @@ const actions = {
             delete context.intro
 
             context.show = true
+            console.log("Here")
             context.reminder_list = listAllReminders(context.sender)
+            console.log(context.reminder_list.length)
 
             return resolve(context)
         })

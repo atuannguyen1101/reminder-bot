@@ -221,9 +221,9 @@ function calcInterval(reminder_event, sender, etime, context, entities, resolve,
             var interval = (hours * 3600 + minutes * 60 + seconds) - (((curr_hr + timezone)%24) * 3600 + curr_min * 60 + curr_sec)
             console.log("ehrs: %d, emin: %d, curr_hr: %d, curr_min: %d", hours, minutes, curr_hr, curr_min)
             
-
+            interval = etime - moment.utc().utcOffset(timezone * 60)
             reminder_event.sender = sender
-            reminder_event.etime = interval * 1000
+            reminder_event.etime = interval
             // needs new context
             if(interval <= 0){
                 reminder_event.err = "Invalid time, must be after the current time."
@@ -323,7 +323,7 @@ function parseResponse(context, entities, resolve, reject){
         context.event_time = time
 
         var strtime = String(time)
-        var etime = new Date(strtime.slice(0, strtime.length - 6) + "+00:00")
+        var etime = new Date(strtime)
 
         var reminder_event = {sender: null, evnt: "", etime: 0, actualtime: 0, err: ""}
         reminder_event.sender = sender

@@ -269,6 +269,7 @@ function fetchTimezone(context, entities, resolve, reject){
 
             var localDate = new Date(utc + 3600000 * timezone)
             context.reference_time = String(localDate)
+            console.log(String(localDate))
 
             return resolve(context)
             //return createReminder(sender, reminder_event)

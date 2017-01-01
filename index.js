@@ -426,6 +426,7 @@ function sendTextMessage(sender, text, context){
         }else{
 
                 if ('show' in context){
+                    console.log("Show!")
                     let messageData = {"attachment": {
                         "type": "template",
                         "payload": {

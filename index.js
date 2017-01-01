@@ -232,8 +232,8 @@ function calcInterval(reminder_event, sender, etime, context, entities, resolve,
             }
             reminder_event.sender = sender
             createReminder(sender, reminder_event)
-            delete context.event
-            delete context.event_time
+            //delete context.event
+            //delete context.event_time
             delete context.before_ctime
 
             return resolve(context)

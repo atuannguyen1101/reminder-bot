@@ -555,3 +555,5 @@ const wit = new Wit({
   actions,
   logger: new log.Logger(log.INFO)
 });
+
+// redundant

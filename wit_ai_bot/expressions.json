@@ -1,0 +1,1207 @@
+{
+  "data" : [
+    {
+      "text" : "10:30pm tomorrow",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T22:30:00.000-08:00\"",
+          "start" : 0,
+          "end" : 16
+        }
+      ]
+    },
+    {
+      "text" : "4.30pm on Monday",
+      "entities" : [
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-02T16:30:00.000-08:00\"",
+          "start" : 0,
+          "end" : 16
+        }
+      ]
+    },
+    {
+      "text" : "4pm tomorrow",
+      "entities" : [
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T16:00:00.000-08:00\"",
+          "start" : 0,
+          "end" : 12
+        }
+      ]
+    },
+    {
+      "text" : "5.30pm tomorrow",
+      "entities" : [
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T17:30:00.000-08:00\"",
+          "start" : 0,
+          "end" : 15
+        }
+      ]
+    },
+    {
+      "text" : "8am today",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2016-12-31T08:00:00.000-08:00\"",
+          "start" : 0,
+          "end" : 9
+        }
+      ]
+    },
+    {
+      "text" : "Can you remind me to empty the trash at 2pm tomorrow?",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"empty the trash\"",
+          "start" : 21,
+          "end" : 36
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-02T14:00:00.000-08:00\"",
+          "start" : 37,
+          "end" : 52
+        }
+      ]
+    },
+    {
+      "text" : "Cancel",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"cancelflow\""
+        }
+      ]
+    },
+    {
+      "text" : "Cancel this",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"cancelflow\""
+        }
+      ]
+    },
+    {
+      "text" : "Cancel this flow",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"cancelflow\""
+        }
+      ]
+    },
+    {
+      "text" : "Cricket at 5pm on Monday",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Cricket\"",
+          "start" : 0,
+          "end" : 7
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-02T17:00:00.000-08:00\"",
+          "start" : 8,
+          "end" : 24
+        }
+      ]
+    },
+    {
+      "text" : "Display my reminders",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"showreminders\""
+        }
+      ]
+    },
+    {
+      "text" : "Drop off John at the airport at 4pm",
+      "entities" : [
+        {
+          "entity" : "reminder",
+          "value" : "\"Drop off John at the airport\"",
+          "start" : 0,
+          "end" : 28
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2016-12-31T16:00:00.000-08:00\"",
+          "start" : 29,
+          "end" : 35
+        }
+      ]
+    },
+    {
+      "text" : "Drop off Kelly",
+      "entities" : [
+        {
+          "entity" : "reminder",
+          "value" : "\"Drop off Kelly\"",
+          "start" : 0,
+          "end" : 14
+        }
+      ]
+    },
+    {
+      "text" : "Drop off Kelly at 5pm tomorrow",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Drop off Kelly\"",
+          "start" : 0,
+          "end" : 14
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T17:00:00.000-08:00\"",
+          "start" : 15,
+          "end" : 30
+        }
+      ]
+    },
+    {
+      "text" : "Drop off mike at the airport",
+      "entities" : [
+        {
+          "entity" : "reminder",
+          "value" : "\"Drop off mike at the airport\"",
+          "start" : 0,
+          "end" : 28
+        }
+      ]
+    },
+    {
+      "text" : "Drop off the children",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Drop off the children\"",
+          "start" : 0,
+          "end" : 21
+        }
+      ]
+    },
+    {
+      "text" : "Fetch the items from the store",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Fetch the items from the store\"",
+          "start" : 0,
+          "end" : 30
+        }
+      ]
+    },
+    {
+      "text" : "Football at 4pm",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Football\"",
+          "start" : 0,
+          "end" : 8
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2016-12-31T16:00:00.000-08:00\"",
+          "start" : 9,
+          "end" : 15
+        }
+      ]
+    },
+    {
+      "text" : "Football at 6pm",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Football\"",
+          "start" : 0,
+          "end" : 8
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2016-12-31T18:00:00.000-08:00\"",
+          "start" : 9,
+          "end" : 15
+        }
+      ]
+    },
+    {
+      "text" : "Go to the store and buy grocery",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Go to the store\"",
+          "start" : 0,
+          "end" : 15
+        }
+      ]
+    },
+    {
+      "text" : "I need to attend a meeting in 10 mins",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"attend a meeting\"",
+          "start" : 10,
+          "end" : 26
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T09:29:40.000-08:00\"",
+          "start" : 27,
+          "end" : 37
+        }
+      ]
+    },
+    {
+      "text" : "I need to pick up the kids at 3pm",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"pick up the kids\"",
+          "start" : 10,
+          "end" : 26
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T15:00:00.000-08:00\"",
+          "start" : 27,
+          "end" : 33
+        }
+      ]
+    },
+    {
+      "text" : "I want to cancel this",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"cancelflow\""
+        }
+      ]
+    },
+    {
+      "text" : "I want to play the guitar in 3 mins",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"play the guitar\"",
+          "start" : 10,
+          "end" : 25
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T09:21:29.000-08:00\"",
+          "start" : 26,
+          "end" : 35
+        }
+      ]
+    },
+    {
+      "text" : "I want to play the piano",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"play the piano\"",
+          "start" : 10,
+          "end" : 24
+        }
+      ]
+    },
+    {
+      "text" : "I want to see my reminders",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"showreminders\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"see my reminders\"",
+          "start" : 10,
+          "end" : 26
+        }
+      ]
+    },
+    {
+      "text" : "I wish to sing a song",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"sing a song\"",
+          "start" : 10,
+          "end" : 21
+        }
+      ]
+    },
+    {
+      "text" : "Iron the clothes",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Iron the clothes\"",
+          "start" : 0,
+          "end" : 16
+        }
+      ]
+    },
+    {
+      "text" : "Laundry at 5pm",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Laundry\"",
+          "start" : 0,
+          "end" : 7
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T17:00:00.000-08:00\"",
+          "start" : 8,
+          "end" : 14
+        }
+      ]
+    },
+    {
+      "text" : "List all my events",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"showreminders\""
+        }
+      ]
+    },
+    {
+      "text" : "List my reminders",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"showreminders\""
+        }
+      ]
+    },
+    {
+      "text" : "Meet John at the park at 11am",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Meet John at the park\"",
+          "start" : 0,
+          "end" : 21
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2016-12-31T11:00:00.000-08:00\"",
+          "start" : 22,
+          "end" : 29
+        }
+      ]
+    },
+    {
+      "text" : "Meet Kelly at the beach at 4pm",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Meet Kelly at the beach\"",
+          "start" : 0,
+          "end" : 23
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2016-12-31T16:00:00.000-08:00\"",
+          "start" : 24,
+          "end" : 30
+        }
+      ]
+    },
+    {
+      "text" : "Meet Mike at the zoo",
+      "entities" : [
+        {
+          "entity" : "reminder",
+          "value" : "\"Meet Mike at the zoo\"",
+          "start" : 0,
+          "end" : 20
+        }
+      ]
+    },
+    {
+      "text" : "Pick up kids at 4pm",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Pick up kids\"",
+          "start" : 0,
+          "end" : 12
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T16:00:00.000-08:00\"",
+          "start" : 13,
+          "end" : 19
+        }
+      ]
+    },
+    {
+      "text" : "Pick up the kids",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Pick up the kids\"",
+          "start" : 0,
+          "end" : 16
+        }
+      ]
+    },
+    {
+      "text" : "Pick up the kids from the zoo at 7pm",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Pick up the kids from the zoo\"",
+          "start" : 0,
+          "end" : 29
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2016-12-31T19:00:00.000-08:00\"",
+          "start" : 30,
+          "end" : 36
+        }
+      ]
+    },
+    {
+      "text" : "Please cancel this",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"cancelflow\""
+        }
+      ]
+    },
+    {
+      "text" : "Please list my reminders",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"showreminders\""
+        }
+      ]
+    },
+    {
+      "text" : "Quit",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"cancelflow\""
+        }
+      ]
+    },
+    {
+      "text" : "Remind me about the football match at 11:30pm today",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"the football match\"",
+          "start" : 16,
+          "end" : 34
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T23:30:00.000-08:00\"",
+          "start" : 35,
+          "end" : 51
+        }
+      ]
+    },
+    {
+      "text" : "Remind me about the match at 3.30pm on Monday",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"the match\"",
+          "start" : 16,
+          "end" : 25
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-02T15:30:00.000-08:00\"",
+          "start" : 26,
+          "end" : 45
+        }
+      ]
+    },
+    {
+      "text" : "Remind me about the match at 3.30pm on Monday!",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"the match\"",
+          "start" : 16,
+          "end" : 25
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-02T15:30:00.000-08:00\"",
+          "start" : 26,
+          "end" : 45
+        }
+      ]
+    },
+    {
+      "text" : "Remind me about the tennis match at 4pm today",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"the tennis match\"",
+          "start" : 16,
+          "end" : 32
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T16:00:00.000-08:00\"",
+          "start" : 33,
+          "end" : 45
+        }
+      ]
+    },
+    {
+      "text" : "Remind me to clean the house tomorrow at 12pm",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"clean the house\"",
+          "start" : 13,
+          "end" : 28
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-02T12:00:00.000-08:00\"",
+          "start" : 29,
+          "end" : 45
+        }
+      ]
+    },
+    {
+      "text" : "Remind me to order food at 6pm today",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"order food\"",
+          "start" : 13,
+          "end" : 23
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T18:00:00.000-08:00\"",
+          "start" : 24,
+          "end" : 36
+        }
+      ]
+    },
+    {
+      "text" : "Remind me to pick up the items at 5pm",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"pick up the items\"",
+          "start" : 13,
+          "end" : 30
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2016-12-31T17:00:00.000-08:00\"",
+          "start" : 31,
+          "end" : 37
+        }
+      ]
+    },
+    {
+      "text" : "Remind me to play football at 2pm",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"play football\"",
+          "start" : 13,
+          "end" : 26
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T14:00:00.000-08:00\"",
+          "start" : 27,
+          "end" : 33
+        }
+      ]
+    },
+    {
+      "text" : "Remind me to water the plants at 4.30pm tomorrow",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"water the plants\"",
+          "start" : 13,
+          "end" : 29
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T16:30:00.000-08:00\"",
+          "start" : 30,
+          "end" : 48
+        }
+      ]
+    },
+    {
+      "text" : "Remind me to water the plants at 4pm tomorrow",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"water the plants\"",
+          "start" : 13,
+          "end" : 29
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T16:00:00.000-08:00\"",
+          "start" : 30,
+          "end" : 45
+        }
+      ]
+    },
+    {
+      "text" : "Remind me to water the plants at 9am tomorrow",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"water the plants\"",
+          "start" : 13,
+          "end" : 29
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T09:00:00.000-08:00\"",
+          "start" : 30,
+          "end" : 45
+        }
+      ]
+    },
+    {
+      "text" : "Show me all my reminders",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"showreminders\""
+        }
+      ]
+    },
+    {
+      "text" : "Show me my reminders",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"showreminders\""
+        }
+      ]
+    },
+    {
+      "text" : "Soccer practice for kids at 10am Friday",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Soccer practice for kids\"",
+          "start" : 0,
+          "end" : 24
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-06T10:00:00.000-08:00\"",
+          "start" : 25,
+          "end" : 39
+        }
+      ]
+    },
+    {
+      "text" : "Sorry! at 6pm tomorrow",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T18:00:00.000-08:00\"",
+          "start" : 7,
+          "end" : 22
+        }
+      ]
+    },
+    {
+      "text" : "Tell me about my events",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"showreminders\""
+        }
+      ]
+    },
+    {
+      "text" : "Water plants at 9am on Tuesday",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Water plants\"",
+          "start" : 0,
+          "end" : 12
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-03T09:00:00.000-08:00\"",
+          "start" : 13,
+          "end" : 30
+        }
+      ]
+    },
+    {
+      "text" : "Water the plants at 3am tomorrow",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Water the plants\"",
+          "start" : 0,
+          "end" : 16
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-02T03:00:00.000-08:00\"",
+          "start" : 17,
+          "end" : 32
+        }
+      ]
+    },
+    {
+      "text" : "Water the plants at 9am on Tuesday",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"Water the plants\"",
+          "start" : 0,
+          "end" : 16
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-03T09:00:00.000-08:00\"",
+          "start" : 17,
+          "end" : 34
+        }
+      ]
+    },
+    {
+      "text" : "What are my reminders?",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"showreminders\""
+        }
+      ]
+    },
+    {
+      "text" : "What reminders do I have?",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"showreminders\""
+        }
+      ]
+    },
+    {
+      "text" : "at 11pm",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2016-12-31T23:00:00.000-08:00\"",
+          "start" : 0,
+          "end" : 7
+        }
+      ]
+    },
+    {
+      "text" : "at 4pm tomorrow",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T16:00:00.000-08:00\"",
+          "start" : 0,
+          "end" : 15
+        }
+      ]
+    },
+    {
+      "text" : "at 9am",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2016-12-31T09:00:00.000-08:00\"",
+          "start" : 0,
+          "end" : 6
+        }
+      ]
+    },
+    {
+      "text" : "cancel this",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"cancelflow\""
+        }
+      ]
+    },
+    {
+      "text" : "drop off mike",
+      "entities" : [
+        {
+          "entity" : "reminder",
+          "value" : "\"drop off mike\"",
+          "start" : 0,
+          "end" : 13
+        }
+      ]
+    },
+    {
+      "text" : "drop off mike at the zoo",
+      "entities" : [
+        {
+          "entity" : "reminder",
+          "value" : "\"drop off mike at the zoo\"",
+          "start" : 0,
+          "end" : 24
+        }
+      ]
+    },
+    {
+      "text" : "hello",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"hello\"",
+          "start" : 0,
+          "end" : 5
+        }
+      ]
+    },
+    {
+      "text" : "hello!",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        }
+      ]
+    },
+    {
+      "text" : "hi",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        }
+      ]
+    },
+    {
+      "text" : "hi there",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"hi there\"",
+          "start" : 0,
+          "end" : 8
+        }
+      ]
+    },
+    {
+      "text" : "hi!",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        }
+      ]
+    },
+    {
+      "text" : "howdy!",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"setreminder\""
+        }
+      ]
+    },
+    {
+      "text" : "pick up the kids at 8pm on Friday",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"pick up the kids\"",
+          "start" : 0,
+          "end" : 16
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-06T20:00:00.000-08:00\"",
+          "start" : 17,
+          "end" : 33
+        }
+      ]
+    },
+    {
+      "text" : "pick up the kids from the store at 9am",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"pick up the kids from the store\"",
+          "start" : 0,
+          "end" : 31
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2016-12-31T09:00:00.000-08:00\"",
+          "start" : 32,
+          "end" : 38
+        }
+      ]
+    },
+    {
+      "text" : "play football at the park",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "reminder",
+          "value" : "\"play football at the park\"",
+          "start" : 0,
+          "end" : 25
+        }
+      ]
+    },
+    {
+      "text" : "remind me to play football"
+    },
+    {
+      "text" : "tomorrow at 11am",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2017-01-01T11:00:00.000-08:00\"",
+          "start" : 0,
+          "end" : 16
+        }
+      ]
+    },
+    {
+      "text" : "tonight at 6",
+      "entities" : [
+        {
+          "entity" : "intent",
+          "value" : "\"\""
+        },
+        {
+          "entity" : "datetime",
+          "value" : "\"2016-12-31T18:00:00.000-08:00\"",
+          "start" : 0,
+          "end" : 12
+        }
+      ]
+    }
+  ]
+}

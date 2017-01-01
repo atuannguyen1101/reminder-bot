@@ -1,0 +1,1437 @@
+{
+  "data" : [
+    {
+      "name" : "",
+      "turns" : [
+        {
+          "user" : "Remind me to pick up the items at 5pm",
+          "entities" : [
+            {
+              "entity" : "intent",
+              "value" : "\"setreminder\""
+            },
+            {
+              "entity" : "reminder",
+              "value" : "\"pick up the items\"",
+              "start" : 13,
+              "end" : 30
+            },
+            {
+              "entity" : "datetime",
+              "value" : "\"2016-12-31T17:00:00.000-08:00\"",
+              "start" : 31,
+              "end" : 37
+            }
+          ],
+          "operations" : [
+            {
+              "action" : "function-processReminder"
+            },
+            {
+              "branches" : [
+                {
+                  "predicates" : [
+                    {
+                      "name" : "event",
+                      "negative" : false
+                    },
+                    {
+                      "name" : "event_time",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Ok! Reminder scheduled: {event} at {event_time}"
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "is_error",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Sorry, I did not recognize any reminder there. Could you please rephrase it?"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "Remind me to pick up the items at 5pm",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"setreminder\""
+                        },
+                        {
+                          "entity" : "reminder",
+                          "value" : "\"pick up the items\"",
+                          "start" : 13,
+                          "end" : 30
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T17:00:00.000-08:00\"",
+                          "start" : 31,
+                          "end" : 37
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "missing_time",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-When do you want me to remind you?"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "tomorrow at 11am",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"\""
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T11:00:00.000-08:00\"",
+                          "start" : 0,
+                          "end" : 16
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "before_ctime",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-You selected a time that is before your current local time! Please enter a valid time."
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "Sorry! at 6pm tomorrow",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"\""
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T18:00:00.000-08:00\"",
+                          "start" : 7,
+                          "end" : 22
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "intro",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Hi there! Greetings from ReminderBot! :D I can help you set reminders within a 24 hour time span!"
+                    },
+                    {
+                      "action" : "template-Get started by asking me to set a reminder!"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "Remind me to pick up the items at 5pm",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"setreminder\""
+                        },
+                        {
+                          "entity" : "reminder",
+                          "value" : "\"pick up the items\"",
+                          "start" : 13,
+                          "end" : 30
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T17:00:00.000-08:00\"",
+                          "start" : 31,
+                          "end" : 37
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "",
+      "turns" : [
+        {
+          "user" : "Remind me to water the plants at 4.30pm tomorrow",
+          "entities" : [
+            {
+              "entity" : "intent",
+              "value" : "\"setreminder\""
+            },
+            {
+              "entity" : "reminder",
+              "value" : "\"water the plants\"",
+              "start" : 13,
+              "end" : 29
+            },
+            {
+              "entity" : "datetime",
+              "value" : "\"2017-01-01T16:30:00.000-08:00\"",
+              "start" : 30,
+              "end" : 48
+            }
+          ],
+          "operations" : [
+            {
+              "action" : "function-processReminder"
+            },
+            {
+              "branches" : [
+                {
+                  "predicates" : [
+                    {
+                      "name" : "event",
+                      "negative" : false
+                    },
+                    {
+                      "name" : "event_time",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Ok! Reminder scheduled: {event} at {event_time}"
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "is_error",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Sorry, I did not recognize any reminder there. Could you please rephrase it?"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "Remind me to water the plants at 4pm tomorrow",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"setreminder\""
+                        },
+                        {
+                          "entity" : "reminder",
+                          "value" : "\"water the plants\"",
+                          "start" : 13,
+                          "end" : 29
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T16:00:00.000-08:00\"",
+                          "start" : 30,
+                          "end" : 45
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "missing_time",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-When do you want me to remind you?"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "at 9am",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"\""
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2016-12-31T09:00:00.000-08:00\"",
+                          "start" : 0,
+                          "end" : 6
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "before_ctime",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-You selected a time that is before your current local time! Please enter a valid time."
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "4pm tomorrow",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"\""
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T16:00:00.000-08:00\"",
+                          "start" : 0,
+                          "end" : 12
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "intro",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Hi there! Greetings from ReminderBot! :D I can help you set reminders within a 24 hour time span!"
+                    },
+                    {
+                      "action" : "template-Get started by asking me to set a reminder!"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "Remind me to water the plants at 4.30pm tomorrow",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"setreminder\""
+                        },
+                        {
+                          "entity" : "reminder",
+                          "value" : "\"water the plants\"",
+                          "start" : 13,
+                          "end" : 29
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T16:30:00.000-08:00\"",
+                          "start" : 30,
+                          "end" : 48
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "",
+      "turns" : [
+        {
+          "user" : "Remind me about the match at 3.30pm on Monday",
+          "entities" : [
+            {
+              "entity" : "intent",
+              "value" : "\"setreminder\""
+            },
+            {
+              "entity" : "reminder",
+              "value" : "\"the match\"",
+              "start" : 16,
+              "end" : 25
+            },
+            {
+              "entity" : "datetime",
+              "value" : "\"2017-01-02T15:30:00.000-08:00\"",
+              "start" : 26,
+              "end" : 45
+            }
+          ],
+          "operations" : [
+            {
+              "action" : "function-processReminder"
+            },
+            {
+              "branches" : [
+                {
+                  "predicates" : [
+                    {
+                      "name" : "event",
+                      "negative" : false
+                    },
+                    {
+                      "name" : "event_time",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Ok! Reminder scheduled: {event} at {event_time}"
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "is_error",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Sorry, I did not recognize any reminder there. Could you please rephrase it?"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "Remind me about the match at 3.30pm on Monday!",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"setreminder\""
+                        },
+                        {
+                          "entity" : "reminder",
+                          "value" : "\"the match\"",
+                          "start" : 16,
+                          "end" : 25
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-02T15:30:00.000-08:00\"",
+                          "start" : 26,
+                          "end" : 45
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "missing_time",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-When do you want me to remind you?"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "tonight at 6",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"\""
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2016-12-31T18:00:00.000-08:00\"",
+                          "start" : 0,
+                          "end" : 12
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "before_ctime",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-You selected a time that is before your current local time! Please enter a valid time."
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "4.30pm on Monday",
+                      "entities" : [
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-02T16:30:00.000-08:00\"",
+                          "start" : 0,
+                          "end" : 16
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "intro",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Hi there! Greetings from ReminderBot! :D I can help you set reminders within a 24 hour time span!"
+                    },
+                    {
+                      "action" : "template-Get started by asking me to set a reminder!"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "Remind me about the match at 3.30pm on Monday",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"setreminder\""
+                        },
+                        {
+                          "entity" : "reminder",
+                          "value" : "\"the match\"",
+                          "start" : 16,
+                          "end" : 25
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-02T15:30:00.000-08:00\"",
+                          "start" : 26,
+                          "end" : 45
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "",
+      "turns" : [
+        {
+          "user" : "Football at 4pm",
+          "entities" : [
+            {
+              "entity" : "intent",
+              "value" : "\"setreminder\""
+            },
+            {
+              "entity" : "reminder",
+              "value" : "\"Football\"",
+              "start" : 0,
+              "end" : 8
+            },
+            {
+              "entity" : "datetime",
+              "value" : "\"2016-12-31T16:00:00.000-08:00\"",
+              "start" : 9,
+              "end" : 15
+            }
+          ],
+          "operations" : [
+            {
+              "action" : "function-processReminder"
+            },
+            {
+              "branches" : [
+                {
+                  "predicates" : [
+                    {
+                      "name" : "event",
+                      "negative" : false
+                    },
+                    {
+                      "name" : "event_time",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Ok! Reminder scheduled: {event} at {event_time}"
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "is_error",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Sorry, I did not recognize any reminder there. Could you please rephrase it?"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "Football at 4pm",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"setreminder\""
+                        },
+                        {
+                          "entity" : "reminder",
+                          "value" : "\"Football\"",
+                          "start" : 0,
+                          "end" : 8
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T16:00:00.000-08:00\"",
+                          "start" : 9,
+                          "end" : 15
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "missing_time",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-When do you want me to remind you?"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "at 11pm",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"\""
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2016-12-31T23:00:00.000-08:00\"",
+                          "start" : 0,
+                          "end" : 7
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "before_ctime",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-You selected a time that is before your current local time! Please enter a valid time."
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "4pm tomorrow",
+                      "entities" : [
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T16:00:00.000-08:00\"",
+                          "start" : 0,
+                          "end" : 12
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "intro",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Hi there! Greetings from ReminderBot! :D I can help you set reminders within a 24 hour time span!"
+                    },
+                    {
+                      "action" : "template-Get started by asking me to set a reminder!"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "Football at 4pm",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"setreminder\""
+                        },
+                        {
+                          "entity" : "reminder",
+                          "value" : "\"Football\"",
+                          "start" : 0,
+                          "end" : 8
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T16:00:00.000-08:00\"",
+                          "start" : 9,
+                          "end" : 15
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "",
+      "turns" : [
+        {
+          "user" : "Drop off Kelly at 5pm tomorrow",
+          "entities" : [
+            {
+              "entity" : "intent",
+              "value" : "\"setreminder\""
+            },
+            {
+              "entity" : "reminder",
+              "value" : "\"Drop off Kelly\"",
+              "start" : 0,
+              "end" : 14
+            },
+            {
+              "entity" : "datetime",
+              "value" : "\"2017-01-01T17:00:00.000-08:00\"",
+              "start" : 15,
+              "end" : 30
+            }
+          ],
+          "operations" : [
+            {
+              "action" : "function-processReminder"
+            },
+            {
+              "branches" : [
+                {
+                  "predicates" : [
+                    {
+                      "name" : "event",
+                      "negative" : false
+                    },
+                    {
+                      "name" : "event_time",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Ok! Reminder scheduled: {event} at {event_time}"
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "is_error",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Sorry, I did not recognize any reminder there. Could you please rephrase it?"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "Drop off Kelly at 5pm tomorrow",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"setreminder\""
+                        },
+                        {
+                          "entity" : "reminder",
+                          "value" : "\"Drop off Kelly\"",
+                          "start" : 0,
+                          "end" : 14
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T17:00:00.000-08:00\"",
+                          "start" : 15,
+                          "end" : 30
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "missing_time",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-When do you want me to remind you?"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "8am today",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"\""
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2016-12-31T08:00:00.000-08:00\"",
+                          "start" : 0,
+                          "end" : 9
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "before_ctime",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-You selected a time that is before your current local time! Please enter a valid time."
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "5.30pm tomorrow",
+                      "entities" : [
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T17:30:00.000-08:00\"",
+                          "start" : 0,
+                          "end" : 15
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "intro",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Hi there! Greetings from ReminderBot! :D I can help you set reminders within a 24 hour time span!"
+                    },
+                    {
+                      "action" : "template-Get started by asking me to set a reminder!"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "Drop off Kelly at 5pm tomorrow",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"setreminder\""
+                        },
+                        {
+                          "entity" : "reminder",
+                          "value" : "\"Drop off Kelly\"",
+                          "start" : 0,
+                          "end" : 14
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T17:00:00.000-08:00\"",
+                          "start" : 15,
+                          "end" : 30
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "",
+      "turns" : [
+        {
+          "user" : "Water the plants at 9am on Tuesday",
+          "entities" : [
+            {
+              "entity" : "intent",
+              "value" : "\"setreminder\""
+            },
+            {
+              "entity" : "reminder",
+              "value" : "\"Water the plants\"",
+              "start" : 0,
+              "end" : 16
+            },
+            {
+              "entity" : "datetime",
+              "value" : "\"2017-01-03T09:00:00.000-08:00\"",
+              "start" : 17,
+              "end" : 34
+            }
+          ],
+          "operations" : [
+            {
+              "bookmark" : "processReminder"
+            },
+            {
+              "action" : "function-processReminder"
+            },
+            {
+              "branches" : [
+                {
+                  "predicates" : [
+                    {
+                      "name" : "event",
+                      "negative" : false
+                    },
+                    {
+                      "name" : "event_time",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Ok! Reminder scheduled: {event} at {event_time}"
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "is_error",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Sorry, I did not recognize any reminder there. Could you please rephrase it?"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "Remind me to water the plants at 9am tomorrow",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"setreminder\""
+                        },
+                        {
+                          "entity" : "reminder",
+                          "value" : "\"water the plants\"",
+                          "start" : 13,
+                          "end" : 29
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T09:00:00.000-08:00\"",
+                          "start" : 30,
+                          "end" : 45
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "missing_time",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-When do you want me to remind you?"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "at 4pm tomorrow",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"\""
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T16:00:00.000-08:00\"",
+                          "start" : 0,
+                          "end" : 15
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "before_ctime",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-You selected a time that is before your current local time! Please enter a valid time."
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "10:30pm tomorrow",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"\""
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-01T22:30:00.000-08:00\"",
+                          "start" : 0,
+                          "end" : 16
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "predicates" : [
+                    {
+                      "name" : "intro",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Hi there! Greetings from ReminderBot! :D I can help you set reminders within a 24 hour time span!"
+                    },
+                    {
+                      "action" : "template-Get started by asking me to set a reminder!"
+                    }
+                  ],
+                  "turns" : [
+                    {
+                      "user" : "Water plants at 9am on Tuesday",
+                      "entities" : [
+                        {
+                          "entity" : "intent",
+                          "value" : "\"setreminder\""
+                        },
+                        {
+                          "entity" : "reminder",
+                          "value" : "\"Water plants\"",
+                          "start" : 0,
+                          "end" : 12
+                        },
+                        {
+                          "entity" : "datetime",
+                          "value" : "\"2017-01-03T09:00:00.000-08:00\"",
+                          "start" : 13,
+                          "end" : 30
+                        }
+                      ],
+                      "operations" : [
+                        {
+                          "jump" : "processReminder"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "",
+      "turns" : [
+        {
+          "user" : "Show me all my reminders",
+          "entities" : [
+            {
+              "entity" : "intent",
+              "value" : "\"showreminders\""
+            }
+          ],
+          "operations" : [
+            {
+              "action" : "function-showReminders"
+            },
+            {
+              "branches" : [
+                {
+                  "predicates" : [
+                    {
+                      "name" : "reminder_list",
+                      "negative" : false
+                    },
+                    {
+                      "name" : "show",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Here are all your reminders!"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "",
+      "turns" : [
+        {
+          "user" : "List my reminders",
+          "entities" : [
+            {
+              "entity" : "intent",
+              "value" : "\"showreminders\""
+            }
+          ],
+          "operations" : [
+            {
+              "action" : "function-showReminders"
+            },
+            {
+              "branches" : [
+                {
+                  "predicates" : [
+                    {
+                      "name" : "reminder_list",
+                      "negative" : false
+                    },
+                    {
+                      "name" : "show",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Here are all your reminders!"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "",
+      "turns" : [
+        {
+          "user" : "Display my reminders",
+          "entities" : [
+            {
+              "entity" : "intent",
+              "value" : "\"showreminders\""
+            }
+          ],
+          "operations" : [
+            {
+              "action" : "function-showReminders"
+            },
+            {
+              "branches" : [
+                {
+                  "predicates" : [
+                    {
+                      "name" : "reminder_list",
+                      "negative" : false
+                    },
+                    {
+                      "name" : "show",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Here are all your reminders!"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "",
+      "turns" : [
+        {
+          "user" : "What reminders do I have?",
+          "entities" : [
+            {
+              "entity" : "intent",
+              "value" : "\"showreminders\""
+            }
+          ],
+          "operations" : [
+            {
+              "action" : "function-showReminders"
+            },
+            {
+              "branches" : [
+                {
+                  "predicates" : [
+                    {
+                      "name" : "reminder_list",
+                      "negative" : false
+                    },
+                    {
+                      "name" : "show",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Here are all your reminders!"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "",
+      "turns" : [
+        {
+          "user" : "Show me my reminders",
+          "entities" : [
+            {
+              "entity" : "intent",
+              "value" : "\"showreminders\""
+            }
+          ],
+          "operations" : [
+            {
+              "action" : "function-showReminders"
+            },
+            {
+              "branches" : [
+                {
+                  "predicates" : [
+                    {
+                      "name" : "reminder_list",
+                      "negative" : false
+                    },
+                    {
+                      "name" : "show",
+                      "negative" : false
+                    }
+                  ],
+                  "operations" : [
+                    {
+                      "action" : "template-Here are all your reminders!"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "data" : {
+    "lookups" : [
+      "trait"
+    ],
+    "name" : "intent",
+    "lang" : "en",
+    "exotic" : false,
+    "id" : "intent",
+    "values" : [
+      {
+        "value" : ""
+      },
+      {
+        "value" : "cancelflow"
+      },
+      {
+        "value" : "setreminder"
+      },
+      {
+        "value" : "showreminders"
+      }
+    ],
+    "doc" : "User-defined entity",
+    "builtin" : false
+  }
+}

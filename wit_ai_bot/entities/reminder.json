@@ -1,0 +1,13 @@
+{
+  "data" : {
+    "lookups" : [
+      "free-text"
+    ],
+    "name" : "reminder",
+    "lang" : "en",
+    "exotic" : false,
+    "id" : "reminder",
+    "doc" : "{\"spanless\":false,\"short_desc\":\"\",\"long_desc\":\"Captures free text that's a typical reminder like `buy some milk`.\",\"examples\":[{\"expression\":[\"remind me to\",\"pick up the kids\",\"\"],\"response\":\"\\\"entities\\\": {\\n        \\\"reminder\\\": [\\n          {\\n            \\\"value\\\": \\\"pick up the kids\\\"\\n          }\\n        ]\\n      }\",\"$$hashKey\":\"075\"},{\"expression\":[\"set a reminder to\",\"buy some milk\",\"\"],\"response\":\"\\\"entities\\\": {\\n        \\\"reminder\\\": [\\n          {\\n            \\\"value\\\": \\\"buy some milk\\\"\\n          }\\n        ]\\n      }\",\"$$hashKey\":\"080\"}],\"similar_wisps\":[{\"name\":\"\",\"$$hashKey\":\"077\"}]}",
+    "builtin" : true
+  }
+}

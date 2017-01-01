@@ -1,0 +1,243 @@
+{
+  "data" : [
+    {
+      "id" : "function-parseReminder",
+      "type" : "function",
+      "name" : "parseReminder",
+      "requirements" : [
+        {
+          "name" : "{wit/datetime}",
+          "negative" : false
+        },
+        {
+          "name" : "{wit/reminder}",
+          "negative" : false
+        }
+      ]
+    },
+    {
+      "id" : "function-processReminder",
+      "type" : "function",
+      "name" : "processReminder"
+    },
+    {
+      "id" : "function-showReminders",
+      "type" : "function",
+      "name" : "showReminders"
+    },
+    {
+      "id" : "template-Get started by asking me to set a reminder!",
+      "type" : "template",
+      "template" : "Get started by asking me to set a reminder!"
+    },
+    {
+      "id" : "template-Here are all your reminders!",
+      "type" : "template",
+      "template" : "Here are all your reminders!"
+    },
+    {
+      "id" : "template-Hi there! Greetings from ReminderBot! :D I can help you set reminders within a 24 hour time span!",
+      "type" : "template",
+      "template" : "Hi there! Greetings from ReminderBot! :D I can help you set reminders within a 24 hour time span!"
+    },
+    {
+      "id" : "template-Hi there! Greetings from ReminderBot! I can help you set reminders within a 24 hour time span!",
+      "type" : "template",
+      "template" : "Hi there! Greetings from ReminderBot! I can help you set reminders within a 24 hour time span!"
+    },
+    {
+      "id" : "template-Ok!",
+      "type" : "template",
+      "template" : "Ok!"
+    },
+    {
+      "id" : "template-Ok! I will remind you about {wit/reminder} at {wit/datetime}",
+      "type" : "template",
+      "template" : "Ok! I will remind you about {wit/reminder} at {wit/datetime}",
+      "requirements" : [
+        {
+          "name" : "wit/datetime",
+          "negative" : false
+        },
+        {
+          "name" : "wit/reminder",
+          "negative" : false
+        }
+      ]
+    },
+    {
+      "id" : "template-Ok! I will remind you to {reminder} at ",
+      "type" : "template",
+      "template" : "Ok! I will remind you to {reminder} at ",
+      "requirements" : [
+        {
+          "name" : "reminder",
+          "negative" : false
+        }
+      ]
+    },
+    {
+      "id" : "template-Ok! I will remind you to {reminder} at {datetime}",
+      "type" : "template",
+      "template" : "Ok! I will remind you to {reminder} at {datetime}",
+      "requirements" : [
+        {
+          "name" : "datetime",
+          "negative" : false
+        },
+        {
+          "name" : "reminder",
+          "negative" : false
+        }
+      ]
+    },
+    {
+      "id" : "template-Ok! I will remind you to {reminder} at {time} ",
+      "type" : "template",
+      "template" : "Ok! I will remind you to {reminder} at {time} ",
+      "requirements" : [
+        {
+          "name" : "reminder",
+          "negative" : false
+        },
+        {
+          "name" : "time",
+          "negative" : false
+        }
+      ]
+    },
+    {
+      "id" : "template-Ok! I will remind you to {reminder} at {wit/datetime}",
+      "type" : "template",
+      "template" : "Ok! I will remind you to {reminder} at {wit/datetime}",
+      "requirements" : [
+        {
+          "name" : "reminder",
+          "negative" : false
+        },
+        {
+          "name" : "wit/datetime",
+          "negative" : false
+        }
+      ]
+    },
+    {
+      "id" : "template-Ok! I will remind you to {wit/reminder} at {wit/datetime}",
+      "type" : "template",
+      "template" : "Ok! I will remind you to {wit/reminder} at {wit/datetime}",
+      "requirements" : [
+        {
+          "name" : "wit/datetime",
+          "negative" : false
+        },
+        {
+          "name" : "wit/reminder",
+          "negative" : false
+        }
+      ]
+    },
+    {
+      "id" : "template-Ok! I will remind you {connector} {reminder} at {datetime}",
+      "type" : "template",
+      "template" : "Ok! I will remind you {connector} {reminder} at {datetime}",
+      "requirements" : [
+        {
+          "name" : "connector",
+          "negative" : false
+        },
+        {
+          "name" : "datetime",
+          "negative" : false
+        },
+        {
+          "name" : "reminder",
+          "negative" : false
+        }
+      ]
+    },
+    {
+      "id" : "template-Ok! I will remind you {connector} {wit/reminder} at {wit/datetime}",
+      "type" : "template",
+      "template" : "Ok! I will remind you {connector} {wit/reminder} at {wit/datetime}",
+      "requirements" : [
+        {
+          "name" : "connector",
+          "negative" : false
+        },
+        {
+          "name" : "wit/datetime",
+          "negative" : false
+        },
+        {
+          "name" : "wit/reminder",
+          "negative" : false
+        }
+      ]
+    },
+    {
+      "id" : "template-Ok! Reminder scheduled: {event} at {event_time}",
+      "type" : "template",
+      "template" : "Ok! Reminder scheduled: {event} at {event_time}",
+      "requirements" : [
+        {
+          "name" : "event",
+          "negative" : false
+        },
+        {
+          "name" : "event_time",
+          "negative" : false
+        }
+      ]
+    },
+    {
+      "id" : "template-Ok! Reminder scheduled: {wit/reminder} at {wit/datetime}",
+      "type" : "template",
+      "template" : "Ok! Reminder scheduled: {wit/reminder} at {wit/datetime}",
+      "requirements" : [
+        {
+          "name" : "wit/datetime",
+          "negative" : false
+        },
+        {
+          "name" : "wit/reminder",
+          "negative" : false
+        }
+      ]
+    },
+    {
+      "id" : "template-Sorry, I did not recognize any reminder there. Could you please rephrase it?",
+      "type" : "template",
+      "template" : "Sorry, I did not recognize any reminder there. Could you please rephrase it?"
+    },
+    {
+      "id" : "template-Sure! Here are all your reminders!",
+      "type" : "template",
+      "template" : "Sure! Here are all your reminders!"
+    },
+    {
+      "id" : "template-When do you want me to remind you?",
+      "type" : "template",
+      "template" : "When do you want me to remind you?"
+    },
+    {
+      "id" : "template-You selected a time that is before your current local time! Please enter a valid time.",
+      "type" : "template",
+      "template" : "You selected a time that is before your current local time! Please enter a valid time."
+    },
+    {
+      "id" : "template-{reminder}{time}",
+      "type" : "template",
+      "template" : "{reminder}{time}",
+      "requirements" : [
+        {
+          "name" : "reminder",
+          "negative" : false
+        },
+        {
+          "name" : "time",
+          "negative" : false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "version" : 20160513,
+  "zip-command" : "zip ReminderBot.zip ReminderBot/app.json ReminderBot/entities/*.json ReminderBot/actions.json ReminderBot/stories.json ReminderBot/expressions.json",
+  "data" : {
+    "name" : "ReminderBot",
+    "lang" : "en"
+  }
+}

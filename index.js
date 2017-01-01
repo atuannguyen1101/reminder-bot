@@ -250,6 +250,7 @@ function calcInterval(reminder_event, sender, etime, context, entities, resolve,
 
 function fetchTimezone(context, entities, resolve, reject){
 
+    var sender = context.sender
     request({
         url: 'https://graph.facebook.com/v2.6/' + sender,
         qs: {access_token:token, fields: "timezone"},

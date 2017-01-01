@@ -235,6 +235,8 @@ function calcInterval(reminder_event, sender, etime, context, entities, resolve,
             reminder_event.sender = sender
             reminder_event.etime = interval
             reminder_event.actualtime = moment.utc(reminder_event.actualtime).utcOffset(timezone * 60).format("HH:mm, ddd Do MMM")
+            context.event_time = reminder_event.actualtime
+
             // needs new context
             if(interval <= 0){
                 reminder_event.err = "Invalid time, must be after the current time."

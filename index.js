@@ -5,34 +5,6 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 
-// var fs = require('fs')
-// var readline = require('readline')
-// var google = require('googleapis')
-// var googleAuth = require('google-auth-library')
-
-// var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
-// var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
-//     process.env.USERPROFILE) + '/.credentials/';
-// var TOKEN_PATH = TOKEN_DIR + 'calendar.googleapis.com-nodejs-reminderbot.json';
-
-// var google = require('googleapis')
-// var OAuth2 = google.auth.OAuth2
-// var calendar = google.calendar('v3')
-
-// var oauth2Client = new OAuth2(
-//     "1046330876699-612bmgjkh9utabu5icbg8nqdbqujr0d8.apps.googleusercontent.com",
-//     "FYwz_Rl12aqWQgSj11tz4MDP",
-//     "https://pure-castle-98425.herokuapp.com/gcalhook"
-// );
-
-// var scopes = [
-//     'https://www.googleapis.com/auth/calendar'
-// ];
-
-// var url = oauth2Client.generateAuthUrl({
-//     access_type: 'offline',
-//     scope: scopes
-// });
 
 var reminders = []
 let Wit = null
@@ -50,6 +22,8 @@ var moment = require('moment')
 
 
 const WIT_TOKEN = process.env.WIT_TOKEN;
+const token = process.env.FB_APP_TOKEN;
+
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -180,28 +154,6 @@ function createReminder(sender, rem_event){
     setTimeout(sendReminder, rem_event.etime, rem_event)
 
     return
-}
-
-
-const token = "EAARVNLWrpj8BAALWZAgBYrbTZAMC3XZCt3LiSYZA17kaDPCZCS5fyw9A40gZB5UOu8eMYjNUbwonDngxbsamwUrPOndo2Mnx5KppNltSq64ighG4lbKiSzzy9aBGVDkCUONFN9RZABWRYLSReVrZBx5FiqDzUUeHT9z0zHQmhcOJ1AZDZD"
-
-function getTimeZone(sender){
-
-    request({
-        url: 'https://graph.facebook.com/v2.6/' + sender,
-        qs: {access_token:token, fields: "timezone"},
-        method: 'GET',
-        json: true,
-    }, function(error, response, body) {
-        if (error) {
-            console.log('Error fetching timezone: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }else{
-            console.log(body)
-            return body.timezone
-        }
-    })
 }
 
 function calcInterval(reminder_event, sender, etime, context, entities, resolve, reject){
@@ -375,47 +327,6 @@ function listAllReminders(sender){
     return userReminders
 }
 
-// function parseResponse(sender, text){
-
-//     var words = text.split(" ")
-//     var num_words = words.length
-//     var reminder_event = {sender: null, evnt: "", etime: 0, actualtime: 0, err: ""}
-
-//     if(num_words < 3){
-//         reminder_event.err = "Invalid format, please use format <event> at <time in 24-h>."
-//         //createReminder(sender, reminder_event)
-//         return reminder_event
-//     }
-
-//     var at_pos = -1;
-//     for(var i = num_words - 1; i >= 0; i--){
-//         if(words[i] == "at"){
-//             at_pos = i;
-//             break;
-//         }
-//     }
-
-//     if(at_pos == -1){
-//         reminder_event.err = "Invalid format, please use format <event> at <time in 24-h>."
-//         //createReminder(sender, reminder_event)
-//         return reminder_event
-//     }
-
-//     reminder_event.evnt = words.slice(0, at_pos).join(" ")
-//     var time_str = words[at_pos+1]
-//     reminder_event.actualtime = time_str
-
-//     //var interval = 
-//     return calcInterval(reminder_event, sender, time_str)
-//     // if (interval <= 0){
-//     //     reminder_event.err = "Invalid time, must be after the current time."
-//     //     return reminder_event
-//     // }
-
-//     // reminder_event.etime = interval
-//     // return reminder_event
-// }
-
 function sendTextMessage(sender, text, context){
     let messageData = { text:text }
     request({
@@ -504,15 +415,7 @@ const actions = {
             console.log("Triggering send")
             console.log('show' in context)
             return sendTextMessage(recipientId, text, context)
-            // .then(() => null)
-            // .catch((err) => {
-            //     console.error(
-            //         'Oops! An error occurred while forwarding the response to',
-            //         recipientId,
-            //         ':',
-            //         err.stack || err
-            //     );
-            // });
+            
         } else {
             console.error('Oops! Couldn\'t find user for session:', sessionId);
             // Giving the wheel back to our bot
@@ -522,7 +425,6 @@ const actions = {
     processReminder({context, entities}){
 
         return new Promise(function(resolve, reject){
-            // code
             // because async call, pass all of this info (context, entities, resolve, reject)
             // to parseResponse
             return parseResponse(context, entities, resolve, reject)
@@ -555,5 +457,3 @@ const wit = new Wit({
   actions,
   logger: new log.Logger(log.INFO)
 });
-
-// redundant

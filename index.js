@@ -494,6 +494,7 @@ const actions = {
             // Yay, we found our recipient!
             // Let's forward our bot response to her.
             // We return a promise to let our bot know when we're done sending
+            console.log('show' in context)
             return sendTextMessage(recipientId, text, context)
             // .then(() => null)
             // .catch((err) => {

@@ -537,7 +537,7 @@ const actions = {
             context.reminder_list = listAllReminders(context.sender)
             console.log(context.reminder_list.length)
 
-            sessions[context.sessionId] = context
+            sessions[context.sessionId].context = context
 
             return resolve(context)
         })

@@ -333,6 +333,7 @@ function parseResponse(context, entities, resolve, reject){
         delete context.event_time
         delete context.is_error
         delete context.before_ctime
+        delete context.show
     }else{
         context.event = evnt
         context.event_time = time

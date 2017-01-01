@@ -226,8 +226,9 @@ function calcInterval(reminder_event, sender, etime, context, entities, resolve,
             // needs new context
             if(interval <= 0){
                 reminder_event.err = "Invalid time, must be after the current time."
-                createReminder(sender, reminder_event)
-                return
+                context.before_ctime = true
+                delete context.event_time
+                return resolve(context)
             }
             reminder_event.sender = sender
             createReminder(sender, reminder_event)
@@ -260,11 +261,13 @@ function parseResponse(context, entities, resolve, reject){
         delete context.event
         delete context.event_time
         delete context.missing_time
+        delete context.before_ctime
     }else if(!time){
         context.missing_time = true
         context.event = evnt
         delete context.event_time
         delete context.is_error
+        delete context.before_ctime
     }else{
         context.event = evnt
         context.event_time = time

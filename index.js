@@ -125,7 +125,8 @@ app.post('/webhook/', function (req, res) {
                 text,
                 sessions[sessionId].context
             ).then((context) => {
-                console.log("saving context: " + 'show' in context)
+                console.log("saving context")
+                console.log('show' in context)
                 sessions[sessionId].context = context
             })
             .catch((err) => {
@@ -494,7 +495,8 @@ const actions = {
             // Yay, we found our recipient!
             // Let's forward our bot response to her.
             // We return a promise to let our bot know when we're done sending
-            console.log("about to trigger send: " + 'show' in context)
+            console.log("Triggering send")
+            console.log('show' in context)
             return sendTextMessage(recipientId, text, context)
             // .then(() => null)
             // .catch((err) => {

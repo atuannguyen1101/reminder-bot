@@ -83,7 +83,7 @@ app.listen(app.get('port'), function() {
 
 const sessions = {};
 
-const firstEntityValue = (entities, entity) => {
+const lastEntityValue = (entities, entity) => {
   const val = entities && entities[entity] &&
     Array.isArray(entities[entity]) &&
     entities[entity].length > 0 &&
@@ -145,6 +145,14 @@ app.post('/webhook/', function (req, res) {
 function sendReminder(rem_event){
 
     let messageData = { text:"REMINDER: " + rem_event.evnt + " at " + rem_event.actualtime}
+    var listLen = reminders.length
+
+    for (var i = 0; i < listLen; i++){
+        if(Object.toJSON(rem_event) == Object.toJSON(reminders[i])){
+            reminders.splice(i, 1)
+            break
+        }
+    }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:token},
@@ -284,10 +292,13 @@ function parseResponse(context, entities, resolve, reject){
     var sender = context.sender
     var evnt
     // if (!('event' in context)){
-    //     evnt = firstEntityValue(entities, "reminder")
+    //     evnt = lastEntityValue(entities, "reminder")
     // }else{
     //     evnt = context.event
     // }
+
+    delete context.show
+
     if (!('reference_time' in context)){
         delete context.event
         delete context.event_time
@@ -301,11 +312,11 @@ function parseResponse(context, entities, resolve, reject){
 
         delete context.intro
     }
-    evnt = firstEntityValue(entities, "reminder")
+    evnt = lastEntityValue(entities, "reminder")
     if (!evnt && ('event' in context))
         evnt = context.event
 
-    var time = firstEntityValue(entities, "datetime")
+    var time = lastEntityValue(entities, "datetime")
 
     if(!evnt){
         context.is_error = true
@@ -340,6 +351,20 @@ function parseResponse(context, entities, resolve, reject){
     }
 
     return resolve(context)
+}
+
+function listAllReminders(sender){
+
+    var userReminders = []
+    var listLen = reminders.length
+
+    for (var i = 0; i < listLen; i++){
+        if(sender == reminders[i].sender){
+            userReminders.push(reminders[i])
+        }
+    }
+
+    return userReminders
 }
 
 // function parseResponse(sender, text){
@@ -383,7 +408,7 @@ function parseResponse(context, entities, resolve, reject){
 //     // return reminder_event
 // }
 
-function sendTextMessage(sender, text){
+function sendTextMessage(sender, text, context){
     let messageData = { text:text }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -400,6 +425,43 @@ function sendTextMessage(sender, text){
             console.log('Error: ', response.body.error)
         }
     })
+
+    if ('show' in context){
+        let messageData = {"attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": []
+            }
+        }}
+
+        var numReminders = context.reminder_list.length
+
+        for (var i = 0; i < numReminders; i++){
+            var newElem = {
+                "title": context.reminder_list[i].evnt
+                "subtitle": "at " + context.reminder_list[i].actualtime
+            }
+
+            messageData.attachment.payload.elements.push(newElem)
+        }
+
+        request({
+            url: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: {access_token:token},
+            method: 'POST',
+            json: {
+                recipient: {id:sender},
+                message: messageData,
+            }
+        }, function(error, response, body) {
+            if (error) {
+                console.log('Error sending messages: ', error)
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error)
+            }
+        })
+    }
 }
 
 ///////////////////////////////////////////////
@@ -423,11 +485,12 @@ const findOrCreateSession = (fbid) => {
 const actions = {
     send({sessionId}, {text}){
         const recipientId = sessions[sessionId].fbid;
+        const context = sessions[sessionId].context
         if (recipientId) {
             // Yay, we found our recipient!
             // Let's forward our bot response to her.
             // We return a promise to let our bot know when we're done sending
-            return sendTextMessage(recipientId, text)
+            return sendTextMessage(recipientId, text, context)
             // .then(() => null)
             // .catch((err) => {
             //     console.error(
@@ -447,12 +510,26 @@ const actions = {
 
         return new Promise(function(resolve, reject){
             // code
-            // becuase async call, pass all of this info (context, entities, resolve, reject)
+            // because async call, pass all of this info (context, entities, resolve, reject)
             // to parseResponse
             return parseResponse(context, entities, resolve, reject)
             //return resolve(context)
         })
 
+    },
+    showReminders({context, entities}){
+        return new Promise(function(resolve, reject){
+            delete context.event
+            delete context.event_time
+            delete context.before_ctime
+            delete context.is_error
+            delete context.intro
+
+            context.show = true
+            context.reminder_list = listAllReminders(context.sender)
+
+            return resolve(context)
+        })
     },
 };
 

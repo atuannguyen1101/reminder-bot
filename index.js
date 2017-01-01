@@ -264,7 +264,11 @@ function fetchTimezone(context, entities, resolve, reject){
         }else{
             console.log(body)
             var timezone = body.timezone
-            context.timezone = timezone
+            var date = new Date()
+            var utc = date.getTime() + (date.getTimeZoneOffset() * 60000)
+
+            var localDate = new Date(utc + 3600000 * timezone)
+            context.reference_time = String(localDate)
 
             return resolve(context)
             //return createReminder(sender, reminder_event)
@@ -281,7 +285,7 @@ function parseResponse(context, entities, resolve, reject){
     // }else{
     //     evnt = context.event
     // }
-    if (!('timezone' in context)){
+    if (!('reference_time' in context)){
         delete context.event
         delete context.event_time
         delete context.missing_time

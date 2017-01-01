@@ -482,7 +482,7 @@ const findOrCreateSession = (fbid) => {
     });
     if (!sessionId){
         sessionId = new Date().toISOString();
-        sessions[sessionId] = {fbid: fbid, context: {sender: fbid}};
+        sessions[sessionId] = {fbid: fbid, context: {sender: fbid, sessionId: sessionId}};
     }
     return sessionId;
 };
@@ -536,6 +536,8 @@ const actions = {
             console.log("Here")
             context.reminder_list = listAllReminders(context.sender)
             console.log(context.reminder_list.length)
+
+            sessions[context.sessionId] = context
 
             return resolve(context)
         })
